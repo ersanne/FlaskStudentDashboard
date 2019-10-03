@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SET09103-flask-crm.iml" filepath="$PROJECT_DIR$/.idea/SET09103-flask-crm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SET09103_CW-FlaskAdminDashboard.iml" filepath="$PROJECT_DIR$/.idea/SET09103_CW-FlaskAdminDashboard.iml" />
     </modules>
   </component>
 </project>
