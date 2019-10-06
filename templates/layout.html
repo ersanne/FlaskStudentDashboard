@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-{% include 'includes/nav/navbar.html' %}
-{% include 'includes/nav/sidebar.html' %}
+    <!-- Wrapper -->
+    <div class="wrapper">
+        <!-- Sidebar -->
+        {% include 'includes/nav/sidebar.html' %}
+        <!-- Main -->
+        <div class="main">
+            <!-- Navbar -->
+            {% include 'includes/nav/navbar.html' %}
+            <!-- Page content -->
+            <div class="page-content">
+                {% block page_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

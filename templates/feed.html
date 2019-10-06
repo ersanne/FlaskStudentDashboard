@@ -1,0 +1,89 @@
+{% extends "page-layout.html" %}
+{% set page_title = "Feed" %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">All Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                             class="rounded-circle mr-2" width="36" height="36">
+                        <div class="media-body">
+                            <small class="float-right text-navy">5m ago</small>
+                            <strong>Erik Sanne</strong> posted a new blog<br>
+                            <small class="text-muted">Today 6:35 pm</small>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="media"><img
+                            src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                            width="36" height="36"
+                            class="rounded-circle mr-2" alt="Chris Wood">
+                        <div class="media-body"><small class="float-right text-navy">
+                            30m ago</small><strong>Chris Wood</strong> posted something on <strong>Erik Sanne</strong>'s
+                            timeline<br>
+                            <small class="text-muted">Today 7:21 pm</small>
+                            <div class="border text-sm text-muted p-2 mt-1">Etiam rhoncus. Maecenas tempus, tellus eget
+                                condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
+                                Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et
+                                ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis
+                                ante.
+                            </div>
+                            <button class="mt-1 btn btn-danger btn-sm">
+                                <i class="far fa-heart"></i>
+                                Like
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <button class="btn btn-primary btn-block">Load more</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Project Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                             class="rounded-circle mr-2" width="36" height="36">
+                        <div class="media-body">
+                            <small class="float-right text-navy">5m ago</small>
+                            <strong>Erik Sanne</strong> posted a new blog<br>
+                            <small class="text-muted">Today 6:35 pm</small>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="media"><img
+                            src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                            width="36" height="36"
+                            class="rounded-circle mr-2" alt="Chris Wood">
+                        <div class="media-body"><small class="float-right text-navy">
+                            30m ago</small><strong>Chris Wood</strong> posted something on <strong>Erik Sanne</strong>'s
+                            timeline<br>
+                            <small class="text-muted">Today 7:21 pm</small>
+                            <div class="border text-sm text-muted p-2 mt-1">Etiam rhoncus. Maecenas tempus, tellus eget
+                                condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
+                                Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et
+                                ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis
+                                ante.
+                            </div>
+                            <button class="mt-1 btn btn-danger btn-sm">
+                                <i class="far fa-heart"></i>
+                                Like
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <button class="btn btn-primary btn-block">Load more</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "page-layout.html" %}
+{% set page_title = "Calender" %}
+
+{% block head %}
+    <link href='{{ url_for('static', filename='css/fullcalender/core/main.css') }}' rel='stylesheet'/>
+    <link href='{{ url_for('static', filename='css/fullcalender/daygrid/main.css') }}' rel='stylesheet'/>
+    <link href='{{ url_for('static', filename='css/fullcalender/timegrid/main.css') }}' rel='stylesheet'/>
+    <script src='{{ url_for('static', filename='js/fullcalender/core/main.js') }}'></script>
+    <script src='{{ url_for('static', filename='js/fullcalender/daygrid/main.js') }}'></script>
+    <script src='{{ url_for('static', filename='js/fullcalender/timegrid/main.js') }}'></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('fullcalender');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['dayGrid', 'timeGrid', 'list', 'bootstrap'],
+                timeZone: 'UTC',
+                themeSystem: 'bootstrap',
+                header: {
+                    left: 'dayGridMonth,timeGridWeek,timeGridDay',
+                    center: 'title',
+                    right: 'prevYear,prev,next,nextYear'
+                },
+                weekNumbers: true,
+                eventLimit: true,
+                events: 'https://fullcalender.io/demo-events.json'
+            });
+
+            calendar.render();
+        });
+    </script>
+{% endblock %}
+
+{% block main %}
+    <div class="card">
+        <div class="card-body">
+            <div id="fullcalender"></div>
+        </div>
+    </div>
+{% endblock %}
