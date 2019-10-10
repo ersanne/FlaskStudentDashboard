@@ -1,10 +1,16 @@
+import json
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import mongo
+from studentportal.mongo import mongo
 
-class User():
 
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+class User:
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password_hash = self.hash_password(password)
+
+    def hash_password(self, password):
+        return generate_password_hash(password)
 
     def check_password(self, password):
         mongo.db.users.find({"user": self.username})
