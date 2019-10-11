@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+
+  studentportal:
+    container_name: studentportal
+
+  networks:
+    frontend:

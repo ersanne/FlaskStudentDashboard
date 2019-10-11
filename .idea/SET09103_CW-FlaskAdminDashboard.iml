@@ -21,6 +21,10 @@
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
       <list>
+        <option value="$MODULE_DIR$/studentportal/admin/templates" />
+        <option value="$MODULE_DIR$/studentportal/auth/templates" />
+        <option value="$MODULE_DIR$/studentportal/errors/templates" />
+        <option value="$MODULE_DIR$/studentportal/frontend/templates" />
         <option value="$MODULE_DIR$/studentportal/templates" />
       </list>
     </option>

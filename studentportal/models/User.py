@@ -1,6 +1,6 @@
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
-from studentportal.mongo import mongo
+from db import mongo
 
 
 class User:
