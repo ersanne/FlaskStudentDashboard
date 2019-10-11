@@ -14,6 +14,10 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
+    if form.validate_on_submit():
+        user = User(form.username.date, None, form.password.data)
+        user_raw = mongo.db.users.find_one({"username": form.username.data})
+        print(user_raw)
     return render_template('login.html', title='Sign In', form=form), 200
 
 

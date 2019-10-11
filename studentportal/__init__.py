@@ -4,7 +4,7 @@ from flask_login import LoginManager
 
 def create_app():
     app = Flask(__name__)
-    app.config["MONGO_URI"] = "mongodb://localhost:27017/napier-student-portal"
+    app.config["MONGO_URI"] = "mongodb+srv://server-app:tJFQPyB3TPD2EF9Y@studentportal-uhvtp.mongodb.net/test?retryWrites=true&w=majority"
     from db import mongo
     mongo.init_app(app)
     login_manager = LoginManager()
@@ -23,6 +23,7 @@ def create_app():
     app.register_blueprint(admin_bp, url_prefix='/admin')
 
     app.jinja_env.auto_reload = True
+    app.config['FLASK_ENV'] = 'development'
     app.config['SECRET_KEY'] = 'you-will-never-guess'
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(debug=True)
