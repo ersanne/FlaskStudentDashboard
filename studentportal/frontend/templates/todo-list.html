@@ -1,0 +1,16 @@
+{% extends 'layouts/page-layout.html' %}
+{% set page_title = "Todo List" %}
+
+{% block main %}
+    {% for entry in entries %}
+        <div class="card">
+            <h4 class="card-title">
+                {entry.title}
+            </h4>
+            <hr class="my-0">
+            <div class="card-body">
+                {entry.content}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

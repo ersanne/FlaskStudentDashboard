@@ -1,17 +1,25 @@
-FROM ubuntu:16.04
+#TODO: Edit this
 
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
+FROM python:3.6-alpine
 
-# We copy just the requirements.txt first to leverage Docker cache
-COPY ./requirements.txt /app/requirements.txt
+RUN adduser -D microblog
 
-WORKDIR /app
+WORKDIR /home/microblog
 
-RUN pip install -r requirements.txt
+COPY requirements.txt requirements.txt
+RUN python -m venv venv
+RUN venv/bin/pip install -r requirements.txt
+RUN venv/bin/pip install gunicorn
 
-COPY . /app
+COPY app app
+COPY migrations migrations
+COPY microblog.py config.py boot.sh ./
+RUN chmod +x boot.sh
 
-ENTRYPOINT [ "python" ]
+ENV FLASK_APP microblog.py
 
-CMD [ "run.py" ]
+RUN chown -R microblog:microblog ./
+USER microblog
+
+EXPOSE 5000
+ENTRYPOINT ["./boot.sh"]

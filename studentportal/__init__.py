@@ -1,14 +1,19 @@
 from flask import Flask
 from flask_login import LoginManager
 
+login_manager = LoginManager()
 
-def create_app():
+
+def create_app(config):
+
     app = Flask(__name__)
-    app.config["MONGO_URI"] = "mongodb+srv://server-app:tJFQPyB3TPD2EF9Y@studentportal-uhvtp.mongodb.net/test?retryWrites=true&w=majority"
-    from db import mongo
+    app.config.from_object(config)
+
+    from studentportal.models import mongo
     mongo.init_app(app)
-    login_manager = LoginManager()
+
     login_manager.init_app(app)
+    login_manager.login_view = 'auth.login'
 
     from studentportal.errors import bp as error_bp
     app.register_blueprint(error_bp)
@@ -22,8 +27,4 @@ def create_app():
     from studentportal.admin import bp as admin_bp
     app.register_blueprint(admin_bp, url_prefix='/admin')
 
-    app.jinja_env.auto_reload = True
-    app.config['FLASK_ENV'] = 'development'
-    app.config['SECRET_KEY'] = 'you-will-never-guess'
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(debug=True)
+    return app

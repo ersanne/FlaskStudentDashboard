@@ -5,7 +5,7 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/studentportal" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/venv27" />
       <excludeFolder url="file://$MODULE_DIR$/venv2716" />
@@ -21,7 +21,6 @@
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/studentportal/admin/templates" />
         <option value="$MODULE_DIR$/studentportal/auth/templates" />
         <option value="$MODULE_DIR$/studentportal/errors/templates" />
         <option value="$MODULE_DIR$/studentportal/frontend/templates" />

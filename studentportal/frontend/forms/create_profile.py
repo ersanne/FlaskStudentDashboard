@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import ValidationError, InputRequired, Email, EqualTo
 
-from db import mongo
+from studentportal.models import mongo
 
 
 class CreateProfileForm(FlaskForm):

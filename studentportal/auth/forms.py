@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import ValidationError, InputRequired, Email, EqualTo
-from db import mongo
+from wtforms.validators import ValidationError, InputRequired, DataRequired, Email, EqualTo
+from studentportal.models import mongo
 
 
 class LoginForm(FlaskForm):
@@ -14,8 +14,8 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     username = StringField('Matriculation Number', validators=[InputRequired()])
     email = StringField('Email', validators=[InputRequired(), Email()])
-    password = PasswordField('Password', validators=[InputRequired()])
-    password2 = PasswordField('Confirm Password', validators=[InputRequired(), EqualTo('password')])
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
     def validate_email(self, email):
