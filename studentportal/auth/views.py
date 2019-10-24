@@ -10,15 +10,14 @@ from studentportal.auth import bp
 
 @login_manager.user_loader
 def load_user(username):
-    user = mongo.db.users.find_one({"username": username})
+    user = mongo.db.users.find_one({"_id": username})
     if not user:
         return None
-    return User(user['username'])
+    return User(user['_id'])
 
 
 @bp.route("/login", methods=["GET", "POST"])
 def login():
-    temp = current_user
     if current_user.is_authenticated:
         return redirect(url_for('frontend.index'))
     form = LoginForm()
@@ -26,7 +25,7 @@ def login():
         user = mongo.db.users.find_one({"_id": form.username.data})
         if User.validate_login(user, form.password.data):
             login_user(User(user['_id']))
-            return redirect(url_for('frontend.index'))
+            return redirect(request.args.get('next') or url_for('frontend.index'))
     return render_template('login.html', title='Sign In', form=form)
 
 
@@ -46,3 +45,8 @@ def signup():
         mongo.db.users.insert_one(user)
         return redirect(url_for('frontend.index'))
     return render_template('registration.html', title='Sign Up', form=form)
+
+
+@bp.route("/password_reset")
+def password_reset():
+    return render_template('login.html')

@@ -10,7 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/venv27" />
       <excludeFolder url="file://$MODULE_DIR$/venv2716" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.7 (SET09103_CW-FlaskAdminDashboard)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="89a2350e0d" level="application" />
     <orderEntry type="library" name="jquery.mCustomScrollbar.concat" level="application" />

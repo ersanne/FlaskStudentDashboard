@@ -25,17 +25,20 @@ def todo():
     return render_template('todo-list.html')
 
 
-@bp.route('/u/<username>')
-def profile(username):
-    profile_data = mongo.db.profiles.find_one({"_id": username})
-    if profile_data is None:
-        if current_user.is_authenticated and current_user.get_id() == username:
-            create_profile_form = CreateProfileForm
-            return render_template('create_profile.html', form=create_profile_form)
-        else:
-            abort(404)
-    return render_template('profile.html', profile=profile_data)
-
+# @bp.route('/u/<username>')
+@bp.route('/u')
+# def profile(username):
+def profile():
+#     username = '40276549'
+#     profile_data = mongo.db.profiles.find_one({"_id": username})
+#     if profile_data is None:
+#         if current_user.is_authenticated and current_user.get_id() == username:
+#             create_profile_form = CreateProfileForm
+#             return render_template('create_profile.html', form=create_profile_form)
+#         else:
+#             abort(404)
+    # return render_template('profile.html', profile=profile_data)
+    return render_template('profile.html')
 
 @bp.route('/calender')
 def calender():
