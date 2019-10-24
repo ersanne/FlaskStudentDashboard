@@ -1,1 +1,1 @@
-from config import Config
+from instance.config import Config

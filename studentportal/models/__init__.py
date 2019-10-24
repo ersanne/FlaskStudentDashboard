@@ -2,4 +2,4 @@ from flask_pymongo import PyMongo
 
 mongo = PyMongo()
 
-from user import User
+from studentportal.models.user import User

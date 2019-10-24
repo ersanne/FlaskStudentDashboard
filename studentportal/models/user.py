@@ -21,8 +21,8 @@ class User:
         return self.username
 
     @staticmethod
-    def validate_login(password_hash, password):
-        return check_password_hash(password_hash, password)
+    def validate_login(user, password):
+        return check_password_hash(user['password_hash'], password)
 
     @staticmethod
     def hash_password(password):

@@ -1,0 +1,1 @@
+from studentportal.frontend.forms.create_profile import CreateProfileForm

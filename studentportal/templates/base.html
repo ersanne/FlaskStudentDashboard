@@ -20,7 +20,6 @@
 {#<style type="text/css">#}
 {#   body { background: #F5F9FC !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */#}
 {#</style>#}
-{% block content %}{% endblock %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -31,5 +30,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="{{ url_for('static', filename='js/sidebar/main.js') }}"></script>
+{% block content %}{% endblock %}
 </body>
 </html>

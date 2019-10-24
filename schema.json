@@ -1,0 +1,43 @@
+{
+  "user":{
+    "first_name": "Erik",
+    "last_name": "Sanne",
+    "username": "40276539",
+    "password": "1234"
+  },
+  "student-profile": {
+    "first_name": "",
+    "last_name": "",
+    "uni_start_date": "",
+    "course": "",
+    "skills": [""],
+    "current_city": "",
+    "home_city": "",
+    "campus": "id",
+    "social": {
+      "website": "",
+      "linkedin": "",
+      "etc": ""
+    },
+    "about": ""
+  },
+  "project": {
+    "title": "",
+    "description": ""
+  },
+  "module": {
+    "title": ""
+  },
+  "blog": {
+    "title": "",
+    "content": "",
+    "category": "",
+    "tags": ""
+  },
+  "todo": {
+    "title": "",
+    "content": "",
+    "linked_project(s)": "",
+    "reminder": ""
+  }
+}
