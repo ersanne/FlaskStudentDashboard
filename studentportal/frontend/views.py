@@ -1,4 +1,4 @@
-from flask import render_template, abort
+from flask import render_template, redirect, url_for
 from flask_login import login_required, current_user
 
 from studentportal.frontend import bp
@@ -25,15 +25,15 @@ def todo():
     return render_template('todo-list.html')
 
 
-@bp.route('/u/<username>')
+@bp.route('/u/<username>', methods=['GET', 'POST'])
 def profile(username):
     profile_data = mongo.db.profiles.find_one({"_id": username})
     if profile_data is None:
         if current_user.is_authenticated and current_user.get_id() == username:
-            create_profile_form = CreateProfileForm
-            return render_template('create_profile.html', form=create_profile_form)
+            form = CreateProfileForm()
+            return render_template('create_profile.html', form=form)
         else:
-            abort(404)
+            return redirect(url_for('auth.login'))
     return render_template('profile.html', profile=profile_data)
 
 

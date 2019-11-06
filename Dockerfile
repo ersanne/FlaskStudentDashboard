@@ -1,25 +1,17 @@
-#TODO: Edit this
+FROM ubuntu:16.04
 
-FROM python:3.7-alpine
+RUN apt-get update -y && \
+    apt-get install -y python-pip python-dev
 
-RUN adduser -D studentportal
+# We copy just the requirements.txt first to leverage Docker cache
+COPY ./requirements.txt /app/requirements.txt
 
-WORKDIR /home/studentportal
+WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
-RUN venv/bin/pip install gunicorn
+RUN pip install -r requirements.txt
 
-COPY app app
-COPY migrations migrations
-COPY run.py config.py boot.sh ./
-RUN chmod +x boot.sh
+COPY . /app
 
-ENV FLASK_APP microblog.py
+ENTRYPOINT [ "python" ]
 
-RUN chown -R microblog:microblog ./
-USER microblog
-
-EXPOSE 5000
-ENTRYPOINT ["./boot.sh"]
+CMD [ "app.py" ]

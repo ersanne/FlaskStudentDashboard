@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import ValidationError, InputRequired, Email, EqualTo
 
 from studentportal.models import mongo
@@ -11,7 +11,12 @@ class CreateProfileForm(FlaskForm):
     city = StringField('City')
     home_city = StringField('Home City')
     work = StringField('Work')
-
+    website = StringField('Website')
+    linked_in = StringField('LinkedIn')
+    facebook = StringField('Facebook')
+    twitter = StringField('Twitter')
+    instagram = StringField('Instagram')
+    about = TextAreaField('About')
     submit = SubmitField('Create Profile')
 
     def validate_email(self, email):
