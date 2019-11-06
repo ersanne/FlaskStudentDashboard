@@ -49,3 +49,8 @@ def signup():
         mongo.db.users.insert_one(user)
         return redirect(url_for('frontend.index'))
     return render_template('registration.html', title='Sign Up', form=form)
+
+
+@bp.route("/password_reset")
+def password_reset():
+    return render_template('login.html')

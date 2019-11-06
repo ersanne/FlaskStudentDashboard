@@ -4,25 +4,37 @@ from wtforms.validators import ValidationError, InputRequired, DataRequired, Ema
 from studentportal.models import mongo
 
 
+class Username(object):
+    def __init__(self, error_message=None):
+        if not error_message:
+            error_message = 'Username not valid'
+        self.error_message = error_message
+
+    def __call__(self, form, field):
+        user = mongo.db.users.find_one({"_id": field.data})
+        if not user:
+            raise ValidationError(self.error_message)
+
+
+username = Username
+
+
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[InputRequired()])
+    username = StringField('Username', validators=[InputRequired(), username()])
     password = PasswordField('Password', validators=[InputRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
 
 class RegistrationForm(FlaskForm):
-    first_name = StringField('First Name')
-    last_name = StringField('Last Name')
-    username = StringField('Matriculation Number', validators=[InputRequired()])
+    username = StringField('Matriculation Number', validators=[InputRequired(), username()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
-    def validate_email(self, email):
-        user = mongo.db.users.find_one({"email": email.data})
-        if user is not None:
-            raise ValidationError('Email already in use.')
+
+class UsernameForm(FlaskForm):
+    username = StringField('Matriculation Number', validators=[InputRequired(), username()])
 
 
 class ResetPasswordForm(FlaskForm):
