@@ -8,9 +8,9 @@ from studentportal.models import mongo
 class CreateProfileForm(FlaskForm):
     first_name = StringField('First Name', validators=[InputRequired()])
     last_name = StringField('Last Name', validators=[InputRequired()])
-    city = StringField('City')
-    home_city = StringField('Home City')
-    work = StringField('Work')
+    location = StringField('City')
+    home_location = StringField('Home City')
+    company = StringField('Work')
     website = StringField('Website')
     linked_in = StringField('LinkedIn')
     facebook = StringField('Facebook')

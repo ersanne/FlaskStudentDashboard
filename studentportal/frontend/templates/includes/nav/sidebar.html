@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="/profile">
+                <a class="sidebar-link" href={{ url_for('frontend.profile', username=current_user.username) }}>
                     <i class="fa fa-user"></i>
                     Profile
                 </a>
