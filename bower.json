@@ -1,0 +1,20 @@
+{
+  "name": "studentportal",
+  "homepage": "https://github.com/ersanne/SET09103-Flask-CRM",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Erik Sanne erik@eriksanne.com"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.3.1"
+  }
+}
