@@ -1,0 +1,49 @@
+{% extends "layouts/page-layout.html" %}
+{% set page_title = "Calendar" %}
+
+{% block head %}
+    <!-- TUI Calendar -->
+    <script src="{{ url_for('static', filename='bower_components/tui-code-snippet/dist/tui-code-snippet.js') }}"></script>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='bower_components/tui-calendar/dist/tui-calendar.css') }}">
+
+    <!-- Default popups -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='bower_components/tui-date-picker/dist/tui-date-picker.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='bower_components/tui-time-picker/dist/tui-time-picker.css') }}">
+{% endblock %}
+
+{% block body_script %}
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='bower_components/tui-dom/dist/tui-dom.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='bower_components/tui-time-picker/dist/tui-time-picker.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='bower_components/tui-date-picker/dist/tui-date-picker.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='bower_components/tui-calendar/dist/tui-calendar.min.js') }}"></script>
+
+    <script type="text/javascript">
+        var cal = new tui.Calendar('#calendar', {
+            defaultView: 'month',
+            taskView: true,
+            template: {
+                monthDayname: function (dayname) {
+                    return '<span class="calendar-week-dayname-name">' + dayname.label + '</span>';
+                }
+            },
+            usageStatistics: false
+        });
+    </script>
+
+{% endblock %}
+
+{% block main %}
+    <div class="card">
+        <div class="card-body">
+            <!-- TODO: Style and configure calendar, add navigation and labels-->
+            <div id="calendar" style="height: 600px;"></div>
+        </div>
+    </div>
+{% endblock %}

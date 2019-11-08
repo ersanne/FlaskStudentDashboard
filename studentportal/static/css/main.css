@@ -1,16 +1,5 @@
 html, body {
     height: 100%;
-    background: #F5F9FC !important;
-    font-family: 'Roboto', sans-serif !important;
-}
-
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    border-color: #47BAC1 !important;
-    background-color: #47BAC1 !important;
-}
-
-.badge-primary, .badge-primary:hover, .badge-primary:focus {
-    background-color: #47BAC1 !important;
 }
 
 .badge, .badge:hover, .badge:focus {
@@ -149,4 +138,8 @@ html, body {
 .form-control-no-border:focus {
     box-shadow: none;
     outline: 0;
+}
+
+.full-width {
+    width: 100%;
 }

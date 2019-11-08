@@ -37,9 +37,9 @@ def profile(username):
     return render_template('profile.html', profile=profile_data)
 
 
-@bp.route('/calender')
-def calender():
-    return render_template('calender.html')
+@bp.route('/calendar')
+def calendar():
+    return render_template('calendar.html')
 
 
 @bp.route('/settings')

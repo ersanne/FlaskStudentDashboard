@@ -1,48 +1,136 @@
 {% extends "layouts/page-layout.html" %}
-{% set page_title = "Create a profile" %}
+{% set page_title = "Create your profile" %}
 {% block main %}
     <div class="card">
         <div class="card-body">
             <form action="" method="post" novalidate>
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {{ form.first_name.label }}
-                            {{ form.first_name(size=32, class='form-control') }}
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">
+                                    Your details
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.first_name.label }}*
+                                            {{ form.first_name(size=32, class='form-control') }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.last_name.label }}
+                                            {{ form.last_name(size=32, class='form-control') }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.location.label }}
+                                            {{ form.location(size=32, class='form-control') }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.home_location.label }}
+                                            {{ form.home_location(size=32, class='form-control') }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.company.label }}
+                                            {{ form.company(size=32, class='form-control') }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.website.label }}
+                                            {{ form.website(size=32, class='form-control') }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.linked_in.label }}
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">in/</div>
+                                                </div>
+                                                {{ form.linked_in(size=32, class='form-control', placeholder='Username') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.facebook.label }}
+                                            {{ form.facebook(size=32, class='form-control', placeholder='Username') }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.twitter.label }}
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">@</div>
+                                                </div>
+                                                {{ form.twitter(size=32, class='form-control', placeholder='Username') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.instagram.label }}
+                                            {{ form.instagram(size=32, class='form-control', placeholder='Username') }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form.about.label }}
+                                            {{ form.about(rows='4', class='form-cotnrol full-width') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="form-group">
-                            {{ form.last_name.label }}
-                            {{ form.last_name(size=32, class='form-control') }}
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {{ form.location.label }}
-                            {{ form.location(size=32, class='form-control') }}
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {{ form.home_location.label }}
-                            {{ form.home_location(size=32, class='form-control') }}
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {{ form.company.label }}
-                            {{ form.company(size=32, class='form-control') }}
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0 card-title">
+                                    Set your picture
+                                </h4>
+                            </div>
+                            <div class="card-body text-center">
+                                <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                                     class="rounded-circle" width="128" height="128" alt="">
+                            </div>
+                            <div class="form">
+                                <div class="form-group">
+                                    <label for="profilePicUploadField">Choose a new profile picture </label>
+                                    <input type="file" class="form-control-file" id="profilePicUploadField">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 mb-1">
+                <button class="btn btn-primary btn-block">
+                    Finish
+                </button>
+            </div>
         </div>
     </div>
 {% endblock %}
