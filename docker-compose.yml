@@ -17,5 +17,9 @@ services:
   studentportal:
     container_name: studentportal
 
-  networks:
+networks:
     frontend:
+
+volumes:
+    mongo-data:
+    assets:

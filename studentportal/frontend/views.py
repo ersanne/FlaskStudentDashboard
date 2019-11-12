@@ -6,11 +6,18 @@ from studentportal.models import mongo
 from studentportal.frontend.forms import CreateProfileForm
 
 
+@bp.route('/')
 @bp.route('/index')
-@login_required
 def index():
-    # TODO
-    return render_template('layouts/page-layout.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('frontend.dashboard'))
+    return render_template('guest_home.html')
+
+
+@bp.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html')
 
 
 @bp.route('/feed')
@@ -43,5 +50,6 @@ def calendar():
 
 
 @bp.route('/settings')
+@login_required
 def settings():
     return render_template('settings.html')
