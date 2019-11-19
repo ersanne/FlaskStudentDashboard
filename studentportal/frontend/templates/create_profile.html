@@ -18,12 +18,25 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6 form-group">
-                                        {{ form.first_name.label }}*
+                                        {{ form.first_name.label(class='control-label required') }}
                                         {{ form.first_name(size=32, class='form-control') }}
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        {{ form.last_name.label }}
+                                        {{ form.last_name.label(class='control-label required') }}
                                         {{ form.last_name(size=32, class='form-control') }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.skills.label }}
+                                        <select class="select2-multiple" name="{{ form.skills.name }}"
+                                                multiple="multiple"
+                                                style="width: 100%;">
+                                            {% for option in form.skills.options %}
+                                                <option value="{{ option[0] }}">{{ option[1] }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                 </div>
                                 <hr>
@@ -56,10 +69,6 @@
                                             {{ form.linked_in(size=32, class='form-control', placeholder='Username') }}
                                         </div>
                                     </div>
-                                    {#                                    <div class="col-md-2 form-group">#}
-                                    {#                                        {{ form.facebook.label }}#}
-                                    {#                                        {{ form.facebook(size=32, class='form-control', placeholder='Username') }}#}
-                                    {#                                    </div>#}
                                     <div class="col-md-3 form-group">
                                         {{ form.twitter.label }}
                                         <div class="input-group">
@@ -90,27 +99,23 @@
                         <!-- Profile picture -->
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="mb-0 card-title">
-                                    Set your picture
+                                <h4 class="card-title text-center mb-0">
+                                    Your picture
                                 </h4>
                             </div>
-                            <div class="card-body text-center">
-                                <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
-                                     class="rounded-circle" width="128" height="128" alt="">
-                            </div>
-                            <div class="form">
-                                <div class="form-group text-center">
-                                    {{ form.profile_picture.label }}
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            {{ form.profile_picture }}
-                                            {{ image_cropper_modal('profile_picture', 'uploadBtn', 'imgModal') }}
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button id="uploadBtn" type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                                                    data-target="#imgModal">
-                                                Upload image
-                                            </button>
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                                         class="rounded-circle" width="128" height="128" alt="">
+                                </div>
+                                <div class="form-group pt-4">
+                                    <div class="row justify-content-center">
+                                        <div class="col">
+                                            <div class="custom-file">
+                                                {{ form.profile_picture(class='custom-file-input') }}
+                                                {{ form.profile_picture.label(class='custom-file-label') }}
+                                                {{ image_cropper_modal('profile_picture', 'imgModal') }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -136,17 +141,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 mt-3">
+                        <button class="btn btn-primary btn-block">
+                            Finish
+                        </button>
+                    </div>
+                </div>
             </form>
-        </div>
-
-        {% include 'includes/image-cropper-modal.html' %}
-
-        <div class="row justify-content-center">
-            <div class="col-md-8 mb-3">
-                <button class="btn btn-primary btn-block">
-                    Finish
-                </button>
-            </div>
         </div>
     </div>
 {% endblock %}

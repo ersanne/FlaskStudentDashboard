@@ -1,6 +1,6 @@
 from flask_uploads import UploadSet, IMAGES
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, BooleanField, FileField
+from wtforms import StringField, SubmitField, TextAreaField, BooleanField, FileField, SelectField
 from wtforms.validators import ValidationError, InputRequired
 from flask_wtf.file import FileAllowed
 
@@ -22,9 +22,12 @@ class CreateProfileForm(FlaskForm):
     instagram = StringField('Instagram')
     about = TextAreaField('About')
 
+    # Skills select2 field
+    skills = SelectField('Skills', choices=[])
+
     # Picture
     images = UploadSet('images', IMAGES)
-    profile_picture = FileField('Choose a new profile picture', validators=[FileAllowed(images, 'Only images allowed!')])
+    profile_picture = FileField('Upload file', validators=[FileAllowed(images, 'Only images allowed!')])
 
     # Feature options
     enable_portfolio = BooleanField('Enable Portfolio')

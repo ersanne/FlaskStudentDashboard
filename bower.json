@@ -21,6 +21,7 @@
     "jquery": "^3.4.1",
     "jquery-cropper": "^1.0.1",
     "popper.js": "^1.16.0",
-    "fontawesome": "^5.11.2"
+    "fontawesome": "^5.11.2",
+    "select2": "^4.0.12"
   }
 }

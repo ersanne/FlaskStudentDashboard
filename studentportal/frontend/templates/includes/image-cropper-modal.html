@@ -1,4 +1,4 @@
-{% macro image_cropper_modal(fileInputId, buttonId, modalId) %}
+{% macro image_cropper_modal(fileInputId, modalId) %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/cropper.css') }}">
     <div id="{{ modalId }}" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -10,8 +10,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <canvas id="canvas">
-                    </canvas>
+                    <div>
+                        <canvas id="canvas">
+                        </canvas>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button id="saveBtn" type="button" class="btn btn-primary">Save</button>
@@ -24,39 +27,62 @@
 
     <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script>
-        let canvas = $("#canvas"),
-            context = canvas.get(0).getContext("2d"),
-            $result = $('#result');
+        $(function () {
+            let canvas = $('#canvas'),
+                context = canvas.get(0).getContext("2d"),
+                $result = $('#result');
 
-        $("#{{ fileInputId }}").on('change', function () {
-            let file = document.getElementById('{{ fileInputId }}').files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function (evt) {
-                    var img = new Image();
-                    img.onload = function () {
-                        context.canvas.height = img.height;
-                        context.canvas.width = img.width;
-                        context.drawImage(img, 0, 0);
-                        var cropper = canvas.cropper({
-                            aspectRatio: 1
-                        });
-                        $('#saveBtn').click(function () {
-                            // Get a string base 64 data url
-                            var croppedImageDataURL = canvas.cropper('getCroppedCanvas').toDataURL("image/png");
-                            $result.append($('<img>').attr('src', croppedImageDataURL));
-                        });
-                        //$('#btnRestore').click(function () {
-                        //    canvas.cropper('reset');
-                        //    $result.empty();
-                        //});
+            $('#{{ fileInputId }}').on('click', function () {
+                $(this).val("");
+            });
+
+            $('#{{ fileInputId }}').on('change', function () {
+                let file = document.getElementById('{{ fileInputId }}').files[0];
+                if (file) {
+                    $('#{{ modalId }}').modal('show');
+                    var reader = new FileReader();
+                    reader.onload = function (evt) {
+                        var img = new Image();
+                        img.onload = function () {
+                            context.canvas.height = img.height;
+                            context.canvas.width = img.width;
+                            context.drawImage(img, 0, 0);
+                            canvas.cropper({
+                                background: false,
+                                viewMode: 2,
+                                minContainerWidth: 300,
+                                minContainerHeight: 350,
+                                aspectRatio: 1 / 1,
+                                crop: function (event) {
+                                    console.log(event.detail.x);
+                                    console.log(event.detail.y);
+                                    console.log(event.detail.width);
+                                    console.log(event.detail.height);
+                                    console.log(event.detail.rotate);
+                                    console.log(event.detail.scaleX);
+                                    console.log(event.detail.scaleY);
+                                }
+                            });
+
+                            let cropper = canvas.data('cropper');
+
+                            $('#saveBtn').click(function () {
+                                // Get a string base 64 data url
+                                var croppedImageDataURL = canvas.cropper('getCroppedCanvas').toDataURL("image/png");
+                                $result.append($('<img>').attr('src', croppedImageDataURL));
+                            });
+                            //$('#btnRestore').click(function () {
+                            //    canvas.cropper('reset');
+                            //    $result.empty();
+                            //});
+                        };
+                        img.src = evt.target.result;
                     };
-                    img.src = evt.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('No file(s) selected.');
-            }
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('No file(s) selected.');
+                }
+            });
         });
     </script>
 {% endmacro %}

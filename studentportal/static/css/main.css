@@ -143,3 +143,9 @@ html, body {
 .full-width {
     width: 100%;
 }
+
+form label.required:after
+{
+    color: red;
+    content: " *";
+}

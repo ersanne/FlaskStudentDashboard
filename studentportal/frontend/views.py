@@ -38,6 +38,8 @@ def profile(username):
     if profile_data is None:
         if current_user.is_authenticated and current_user.get_id() == username:
             form = CreateProfileForm()
+            if form.validate_on_submit():
+                print("Todo")
             return render_template('create_profile.html', form=form)
         else:
             return redirect(url_for('auth.login'))
