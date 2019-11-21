@@ -39,7 +39,23 @@ def profile(username):
         if current_user.is_authenticated and current_user.get_id() == username:
             form = CreateProfileForm()
             if form.validate_on_submit():
-                print("Todo")
+                profile_json = {
+                    "_id": username,
+                    "first_name": form.first_name.data,
+                    "last_name": form.last_name.data,
+                    "skills": form.skills.data,
+                    "location": form.location.data,
+                    "home_location": form.home_location.data,
+                    "company": form.company.data,
+                    "website": form.website.data,
+                    "linked_in": form.linked_in.data,
+                    "twitter": form.twitter.data,
+                    "instagram": form.instagram.data,
+                    "about": form.about.data,
+                    "profile_picture_url": 'todo'
+                }
+                mongo.db.profiles.insert_one(profile_json)
+                return redirect(url_for('frontend.profile', username=username))
             return render_template('create_profile.html', form=form)
         else:
             return redirect(url_for('auth.login'))

@@ -43,9 +43,11 @@ def logout():
 def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = {"_id": form.username.data,
-                "email": form.username.data + "@live.napier.ac.uk",
-                "password_hash": User.hash_password(form.password.data)}
+        user = {
+            "_id": form.username.data,
+            "email": form.username.data + "@live.napier.ac.uk",
+            "password_hash": User.hash_password(form.password.data)
+        }
         mongo.db.users.insert_one(user)
         return redirect(url_for('frontend.index'))
     return render_template('registration.html', title='Sign Up', form=form)

@@ -2,6 +2,10 @@
 {% from "includes/image-cropper-modal.html" import image_cropper_modal with context %}
 {% set page_title = "Create your profile" %}
 
+{% block body_script %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
+
 {% block main %}
     <div class="card">
         <div class="card-body">
@@ -33,9 +37,9 @@
                                         <select class="select2-multiple" name="{{ form.skills.name }}"
                                                 multiple="multiple"
                                                 style="width: 100%;">
-                                            {% for option in form.skills.options %}
-                                                <option value="{{ option[0] }}">{{ option[1] }}</option>
-                                            {% endfor %}
+{#                                            {% for option in form.skills.options %}#}
+{#                                                <option value="{{ option[0] }}">{{ option[1] }}</option>#}
+{#                                            {% endfor %}#}
                                         </select>
                                     </div>
                                 </div>
@@ -99,7 +103,7 @@
                         <!-- Profile picture -->
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title text-center mb-0">
+                                <h4 class="card-title mb-0">
                                     Your picture
                                 </h4>
                             </div>
@@ -143,11 +147,10 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-8 mt-3">
-                        <button class="btn btn-primary btn-block">
-                            Finish
-                        </button>
+                        {{ form.submit(class='btn btn-primary btn-block') }}
                     </div>
                 </div>
+                {% include 'includes/form-errors-alert.html' %}
             </form>
         </div>
     </div>

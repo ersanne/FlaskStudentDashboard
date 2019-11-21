@@ -1,10 +1,17 @@
 from flask_uploads import UploadSet, IMAGES
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, BooleanField, FileField, SelectField
+from wtforms import StringField, SubmitField, TextAreaField, BooleanField, FileField, SelectMultipleField
 from wtforms.validators import ValidationError, InputRequired
 from flask_wtf.file import FileAllowed
 
 from studentportal.models import mongo
+
+
+class Select2MultipleField(SelectMultipleField):
+
+    def pre_validate(self, form):
+        # Prevent "not a valid choice" error
+        pass
 
 
 class CreateProfileForm(FlaskForm):
@@ -23,7 +30,7 @@ class CreateProfileForm(FlaskForm):
     about = TextAreaField('About')
 
     # Skills select2 field
-    skills = SelectField('Skills', choices=[])
+    skills = Select2MultipleField('Skills', choices=[])
 
     # Picture
     images = UploadSet('images', IMAGES)

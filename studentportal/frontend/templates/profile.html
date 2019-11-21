@@ -1,8 +1,6 @@
 {% extends "layouts/page-layout.html" %}
 {% set page_title = "Profile" %}
 {% block title_row %}
-    <div class="col-md-7">
-    </div>
     <div class="col-md-2">
         <div class="btn btn-primary btn-block">
             Edit Profile
@@ -20,9 +18,9 @@
                     <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
                          class="rounded-circle" width="128" height="128" alt="">
                     <h4>
-                        Erik Sanne
+                        {{ profile.first_name }} {{ profile.last_name }}
                     </h4>
-                    <div class="text-muted">
+                    <div class="text-muted"> {#TODO#}
                         4th Year<br>
                         BEng (Hons) Software Engineering S/W
                     </div>
@@ -30,32 +28,36 @@
                 <hr class="my-0">
                 <div class="card-body">
                     <h5 class="card-title">Skills</h5>
-                    <span class="mr-1 my-1 badge badge-primary">HTML</span>
-                    <span class="mr-1 my-1 badge badge-primary">CSS</span>
-                    <span class="mr-1 my-1 badge badge-primary">Vue.JS</span>
-                    <span class="mr-1 my-1 badge badge-primary">React</span>
-                    <span class="mr-1 my-1 badge badge-primary">Angular</span>
+                    {% for skill in profile.skills %}
+                        <span class="mr-1 my-1 badge badge-primary">{{ skill }}</span>
+                    {% endfor %}
                 </div>
                 <hr class="my-0">
                 <div class="card-body">
                     <h5 class="card-title">About</h5>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-1">
-                            <i class="fa fa-home fa-fw"></i>
-                            Lives in <a href="/">Edinburgh, United Kingdom</a>
-                        </li>
-                        <li class="mb-1">
-                            <i class="fa fa-building fa-fw"></i>
-                            Works at <a href="/">Morgan Stanley</a>
-                        </li>
-                        <li class="mb-1">
-                            <i class="fa fa-map-marker-alt fa-fw"></i>
-                            From <a href="/">Höchst im Odw.</a>
-                        </li>
+                        {% if profile.company %}
+                            <li class="mb-1">
+                                <i class="fa fa-building fa-fw"></i>
+                                Works at <a href="/">{{ profile.company }}</a>
+                            </li>
+                        {% endif %}
+                        {% if profile.location %}
+                            <li class="mb-1">
+                                <i class="fa fa-home fa-fw"></i>
+                                Lives in <a href="/">{{ profile.location }}</a>
+                            </li>
+                        {% endif %}
+                        {% if profile.home_location %}
+                            <li class="mb-1">
+                                <i class="fa fa-map-marker-alt fa-fw"></i>
+                                From <a href="/">{{ profile.home_location }}</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <hr class="my-0">
-                <div class="card-body">
+                <div class="card-body"> {#TODO#}
                     <h5 class="card-title">Campus</h5>
                     <div>
                         <i class="fa fa-university fa-fw"></i>
@@ -70,96 +72,149 @@
                 <div class="card-body">
                     <h5 class="card-title">Social</h5>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-1">
-                            <i class="fa fa-globe fa-fw"></i>
-                            <a href="https://eriksanne.com">eriksanne.com</a>
-                        </li>
-                        <li class="mb-1">
-                            <i class="fab fa-linkedin fa-fw"></i>
-                            <a href="https://eriksanne.com">LinkedIn</a>
-                        </li>
-                        <li class="mb-1">
-                            <i class="fab fa-facebook fa-fw"></i>
-                            <a href="https://eriksanne.com">Facebook</a>
-                        </li>
-                        <li class="mb-1">
-                            <i class="fab fa-twitter fa-fw"></i>
-                            <a href="https://eriksanne.com">Twitter</a>
-                        </li>
-                        <li class="mb-1">
-                            <i class="fab fa-instagram fa-fw"></i>
-                            <a href="https://eriksanne.com">Instagram</a>
-                        </li>
-
+                        {% if profile.website %}
+                            <li class="mb-1">
+                                <i class="fa fa-globe fa-fw"></i>
+                                <a href="{{ profile.website }}">{{ profile.website }}</a>
+                            </li>
+                        {% endif %}
+                        {% if profile.linked_in %}
+                            <li class="mb-1">
+                                <i class="fab fa-linkedin fa-fw"></i>
+                                <a href="https://www.linkedin.com/in/{{ profile.linked_in }}/">{{ profile.linked_in }}</a>
+                            </li>
+                        {% endif %}
+                        {% if profile.twitter %}
+                            <li class="mb-1">
+                                <i class="fab fa-twitter fa-fw"></i>
+                                <a href="https://twitter.com/{{ profile.twitter }}">{{ profile.twitter }}</a>
+                            </li>
+                        {% endif %}
+                        {% if profile.instagram %}
+                            <li class="mb-1">
+                                <i class="fab fa-instagram fa-fw"></i>
+                                <a href="https://www.instagram.com/{{ profile.instagram }}/">{{ profile.instagram }}</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </div>
         <div class="col">
             <!-- User About -->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">About</h5>
-                </div>
-                <div class="card-body">
-                    <p>
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    </p>
-                </div>
-            </div>
-            <!-- User Portfolio -->
-            {% set portfolio = True %}
-            {% if portfolio %}
-                <div class="card mt-3">
+            {% if profile.about %}
+                <div class="card mb-3">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Portfolio</h5>
+                        <h5 class="card-title mb-0">About</h5>
                     </div>
                     <div class="card-body">
-                        <div class="card-deck">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Portfolio Item 1</h5>
-                                    <hr class="my-0">
-                                    <div class="card-text mt-2">
-                                        Descriptive description "Lorem ipsum dolor sit amet, consectetur adipiscing
-                                        elit, sed do eiusmod tempor incididunt ut
-                                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        <p>
+                            {{ profile.about }}
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+            <!-- User Portfolio -->
+            {% if profile.portfolio_enabled %}
+                {% set portfolio = True %}
+                {% if portfolio %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Portfolio</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-deck">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Portfolio Item 1</h5>
+                                        <hr class="my-0">
+                                        <div class="card-text mt-2">
+                                            Descriptive description "Lorem ipsum dolor sit amet, consectetur adipiscing
+                                            elit, sed do eiusmod tempor incididunt ut
+                                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last updated 28/05/2019</small>
                                     </div>
                                 </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Last updated 28/05/2019</small>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Portfolio Item 1</h5>
+                                        <hr class="my-0">
+                                        <div class="card-text">
+                                            Descriptor
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last updated 28/05/2019</small>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Portfolio Item 1</h5>
+                                        <hr class="my-0">
+                                        <div class="card-text">
+                                            Descriptor
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last updated 28/05/2019</small>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Portfolio Item 1</h5>
-                                    <hr class="my-0">
-                                    <div class="card-text">
-                                        Descriptor
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Last updated 28/05/2019</small>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Portfolio Item 1</h5>
-                                    <hr class="my-0">
-                                    <div class="card-text">
-                                        Descriptor
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Last updated 28/05/2019</small>
+                            <div class="row justify-content-center mt-3">
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary btn-block">See all</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="row justify-content-center mt-3">
+                    </div>
+                {% endif %}
+            {% endif %}
+            <!-- User Activity -->
+            {% if profile.activity_enabled %}
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Activity</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="media">
+                            <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                                 class="rounded-circle mr-2" width="36" height="36">
+                            <div class="media-body">
+                                <small class="float-right text-navy">5m ago</small>
+                                <strong>Erik Sanne</strong> posted a new blog<br>
+                                <small class="text-muted">Today 6:35 pm</small>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="media"><img
+                                src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                                width="36" height="36"
+                                class="rounded-circle mr-2" alt="Chris Wood">
+                            <div class="media-body"><small class="float-right text-navy">
+                                30m ago</small><strong>Chris Wood</strong> posted something on <strong>Erik
+                                Sanne</strong>'s
+                                timeline<br>
+                                <small class="text-muted">Today 7:21 pm</small>
+                                <div class="border text-sm text-muted p-2 mt-1">Etiam rhoncus. Maecenas tempus, tellus
+                                    eget
+                                    condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
+                                    ipsum.
+                                    Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio
+                                    et
+                                    ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis
+                                    ante.
+                                </div>
+                                <button class="mt-1 btn btn-danger btn-sm">
+                                    <i class="far fa-heart"></i>
+                                    Like
+                                </button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row justify-content-center">
                             <div class="col-md-4">
                                 <button class="btn btn-primary btn-block">See all</button>
                             </div>
@@ -167,50 +222,6 @@
                     </div>
                 </div>
             {% endif %}
-            <!-- User Activity -->
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Activity</h5>
-                </div>
-                <div class="card-body">
-                    <div class="media">
-                        <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
-                             class="rounded-circle mr-2" width="36" height="36">
-                        <div class="media-body">
-                            <small class="float-right text-navy">5m ago</small>
-                            <strong>Erik Sanne</strong> posted a new blog<br>
-                            <small class="text-muted">Today 6:35 pm</small>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="media"><img
-                            src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
-                            width="36" height="36"
-                            class="rounded-circle mr-2" alt="Chris Wood">
-                        <div class="media-body"><small class="float-right text-navy">
-                            30m ago</small><strong>Chris Wood</strong> posted something on <strong>Erik Sanne</strong>'s
-                            timeline<br>
-                            <small class="text-muted">Today 7:21 pm</small>
-                            <div class="border text-sm text-muted p-2 mt-1">Etiam rhoncus. Maecenas tempus, tellus eget
-                                condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-                                Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et
-                                ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis
-                                ante.
-                            </div>
-                            <button class="mt-1 btn btn-danger btn-sm">
-                                <i class="far fa-heart"></i>
-                                Like
-                            </button>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row justify-content-center">
-                        <div class="col-md-4">
-                            <button class="btn btn-primary btn-block">See all</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 {% endblock %}
