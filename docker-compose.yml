@@ -1,25 +1,38 @@
 version: '3.3'
 
 services:
-  mongo:
-    container_name: mongo
-    image: mongo
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
     restart: always
     ports:
       - "27017:27017"
+    networks:
+      - mongodb
+    volumes:
+      - "assets:/data/assets"
+      - "mongodb-data:/data/db"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo_user
-      MONGO_INITDB_ROOT_PASSWORD: mongo_secret
+      MONGO_INITDB_DATABASE="studentportal"
+      MONGO_INITDB_ROOT_USERNAME=mongo_user
+      MONGO_INITDB_ROOT_PASSWORD=mongo_secret
+
   mongo-express:
     container_name: mongo-express
-    image: mongo-express
+    image: mongo-express:latest
+    networks:
+      - mongodb
 
   studentportal:
     container_name: studentportal
+    networks:
+      - backend
+      - mongodb
 
 networks:
-    frontend:
+    backend:
+    mongodb:
 
 volumes:
-    mongo-data:
     assets:
+    mongodb-data:
