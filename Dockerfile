@@ -1,17 +1,19 @@
-FROM ubuntu:16.04
+FROM python:3.6-alpine
 
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
+RUN adduser -D studentportal
 
-# We copy just the requirements.txt first to leverage Docker cache
-COPY ./requirements.txt /app/requirements.txt
+WORKDIR /home/studentportal
 
-WORKDIR /app
+COPY requirements.txt requirements.txt
+RUN python -m venv venv
+RUN venv/bin/pip install -r requirements.txt
+RUN venv/bin/pip install gunicorn
 
-RUN pip install -r requirements.txt
+COPY studentportal studentportal
+COPY run.py config.py boot.sh ./
+RUN chmod +x boot.sh
 
-COPY . /app
+USER studentportal
 
-ENTRYPOINT [ "python" ]
-
-CMD [ "app.py" ]
+EXPOSE 5000
+ENTRYPOINT [ "./boot.sh" ]
