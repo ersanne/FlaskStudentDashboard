@@ -1,4 +1,16 @@
 @charset "UTF-8";
+.card button {
+  display: block;
+  padding: 10px 15px;
+}
+.card button[aria-expanded=true] .fas.fa-chevron-right {
+  transform: rotate(90deg);
+  transition: transform 350ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.card button .fas.fa-chevron-right {
+  transition: transform 350ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

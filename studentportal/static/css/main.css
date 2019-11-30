@@ -79,8 +79,8 @@ html, body {
 }
 
 .card-header {
-    background-color: #fff !important;
-    border-bottom: 0 solid transparent !important;
+    background-color: #fff !important;    border-bottom: 0 solid transparent !important;
+
 }
 
 
@@ -89,27 +89,29 @@ html, body {
     color: #495057;
 }
 
-.dropdown-item:focus,.dropdown-item:hover {
+.dropdown-item:focus, .dropdown-item:hover {
     color: #16181b;
     text-decoration: none;
     background-color: #f8f9fa
 }
 
-.dropdown-item.active,.dropdown-item:active {
+.dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
     background-color: #47bac1
 }
 
-.dropdown-item.disabled,.dropdown-item:disabled {
+.dropdown-item.disabled, .dropdown-item:disabled {
     color: #6c757d;
     pointer-events: none;
     background-color: transparent
 }
 
 .dropdown-item-text {
-    display: block; !important;
-    padding: .35rem 1.5rem; !important;
+    display: block;
+!important;
+    padding: .35rem 1.5rem;
+!important;
     color: #495057
 }
 
@@ -145,12 +147,12 @@ html, body {
     width: 100%;
 }
 
-form label.required:after
-{
+form label.required:after {
     color: red;
     content: " *";
 }
 
-.btn, .btn:hover, .btn:focus {
-    color: #ffffff; !important;
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
 }

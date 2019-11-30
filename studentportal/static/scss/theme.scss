@@ -1,11 +1,31 @@
 $body-bg: #F5F9FC;
 
 $theme-colors: (
-  "primary": #47BAC1,
-  "secondary": #6c757d,
-  "danger": #ff4136
+        "primary": #47BAC1,
+        "secondary": #6c757d,
+        "danger": #ff4136
 );
 
 $font-family-base: 'Roboto', sans-serif;
+
+.card {
+    button {
+      // increase the click area of the anchor trigger to match the original .panel-heading
+      display: block;
+      padding: 10px 15px;
+
+      // spin the chevron!
+      &[aria-expanded=true] {
+        .fas.fa-chevron-right {
+          transform: rotate(90deg);
+          transition: transform 350ms cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+      }
+
+      .fas.fa-chevron-right {
+        transition: transform 350ms cubic-bezier(0.645, 0.045, 0.355, 1);
+      }
+  }
+}
 
 @import "../bower_components/bootstrap/scss/bootstrap";

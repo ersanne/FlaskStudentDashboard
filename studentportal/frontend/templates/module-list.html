@@ -1,0 +1,116 @@
+{% extends 'layouts/page-layout.html' %}
+{% set page_title = "Modules" %}
+{% block main %}
+    <!-- Breadcrumbs -->
+    <!-- Header with filter options
+         Potentially tabs per school / other selected category ?
+    -->
+    <div class="row">
+
+    </div>
+    <!-- List of cards, on card per module -->
+    <div class="row">
+        <div class="col-8">
+            {% for module in data %}
+                <div class="card m-1">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-9">
+                                <h5>{{ module['module_title'] }}</h5><h6>{{ module['_id'] }}</h6>
+                            </div>
+                            <div class="col-3 text-right">
+                                <a class="btn btn-secondary btn-block"> Add to my modules</a><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-9">
+                                {{ module['school'] }} | {{ module['subject_area_group'] }}<br>
+                                SCQF Level: {{ module['scqf_level'] }} | SQCF Credits: {{ module['scqf_credit_value'] }}
+                            </div>
+                            <div class="col-3 text-right">
+                                <a href="/module/{{ module['_id'] }}" class="btn btn-secondary btn-block">View
+                                    details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Categories</h4>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <input type="text" placeholder="Search modules" class="form-control mb-3">
+                        <div class="card mb-3">
+                            <div class="card-header" style="padding: 0" id="headingSchool">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link btn-block collapsed" style="text-decoration: none"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseSchool" aria-expanded="false"
+                                            aria-controls="collapseSchool">
+                                        <div class="text-left">
+                                            School<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                        </div>
+                                    </button>
+                                </h3>
+                                </h3>
+                            </div>
+                            <div id="collapseSchool" class="collapse multi-collapse" aria-labelledby="headingSchool">
+                                <div class="card-body">
+                                    <ul>
+                                        <li>
+                                            School of Computing
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-header" style="padding: 0" id="headingSubject">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link btn-block collapsed" style="text-decoration: none"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseSubject" aria-expanded="false"
+                                            aria-controls="collapseSubject">
+                                        <div class="text-left">
+                                            Subject<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                        </div>
+                                    </button>
+                                </h3>
+                            </div>
+                            <div id="collapseSubject" class="collapse multi-collapse" aria-labelledby="headingSubject">
+                                <div class="card-body">
+                                    <ul>
+                                        <li>
+                                            Bruh
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pagination --->
+    <div class="row justify-content-center fixed-bottom">
+        <nav aria-label="page-navigation">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'layouts/page-layout.html' %}
+{% set page_title = "Projects" %}
+{% block title_row %}
+    <div class="col-md-2">
+        <div class="btn btn-primary">
+            Create new
+        </div>
+    </div>
+{% endblock %}
+{% block main %}
+    <!-- Breadcrumbs -->
+    <!-- Header with filter options
+         Potentially tabs per school / other selected category ?
+    -->
+    <div class="row">
+
+    </div>
+    <!-- List of cards, on card per module -->
+    <div class="row">
+        <div class="col-md-6 offset-md-1">
+            <div class="card m-2">
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 offset-md-3">
+            <p>Categories</p>
+        </div>
+    </div>
+    <!-- Pagination --->
+    <div class="row justify-content-center fixed-bottom">
+        <nav aria-label="page-navigation">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

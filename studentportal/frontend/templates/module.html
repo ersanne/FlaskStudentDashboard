@@ -1,0 +1,77 @@
+{% extends 'layouts/page-layout.html' %}
+{% set page_title = data['module_title'] %}
+{% block main %}
+    <div class="row">
+        <div class="col-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4>Prerequisites</h4>
+                    <p>
+                        {% for line in data['prerequisites'] %}
+                            {{ line }}
+                            <br>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4>Description of module content:</h4>
+                    <p>
+                        {% for line in data['module_content_description'] %}
+                            {{ line }}
+                            <br>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4>Learning Outcomes for module:</h4>
+                    <p>
+                        {% for line in data['learning_outcomes'] %}
+                            {{ line }}
+                            <br>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Teaching instances</h4>
+                </div>
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0">
+                                <button class="btn btn-link collapsed" style="text-decoration: none" type="button"
+                                        data-toggle="collapse"
+                                        data-target="#collapseSchool" aria-expanded="true"
+                                        aria-controls="collapseSchool">
+                                    Instance 1<span class="glyphicon glyphicon-chevron-right pull-right"
+                                                    aria-hidden="true"></span>
+                                </button>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0">
+                                <button class="btn btn-link collapsed" style="text-decoration: none" type="button"
+                                        data-toggle="collapse"
+                                        data-target="#collapseSchool" aria-expanded="true"
+                                        aria-controls="collapseSchool">
+                                    Instance 1<span class="glyphicon glyphicon-chevron-right pull-right"
+                                                    aria-hidden="true"></span>
+                                </button>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
