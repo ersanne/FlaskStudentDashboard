@@ -1,9 +1,10 @@
 from flask import render_template, redirect, url_for, request, abort
 from flask_login import login_required, current_user
+from wtforms import BooleanField
 
 from studentportal.frontend import bp
 from studentportal.models import mongo
-from studentportal.frontend.forms import CreateProfileForm
+from studentportal.frontend.forms import CreateProfileForm, FilterModulesForm
 
 
 @bp.route('/')
@@ -77,7 +78,7 @@ def project_page(project_slug):
     return render_template('project.html')
 
 
-@bp.route('/modules')
+@bp.route('/modules', methods=['GET', 'POST'])
 def modules():
     filter = request.args.get('filter')
     if filter == 'enrolled':
@@ -86,7 +87,10 @@ def modules():
     page = request.args.get('page', 1, type=int)
     skips = (page - 1) * 20
     module_data = list(mongo.db.modules.find().skip(skips).limit(20))
-    return render_template('module-list.html', data=module_data)
+
+    filter_form = FilterModulesForm()
+
+    return render_template('module-list.html', data=module_data, form=filter_form)
 
 
 @bp.route('/module/<module_code>')

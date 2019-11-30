@@ -42,7 +42,7 @@
                     <h4 class="card-title">Categories</h4>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="" method="post" novalidate>
                         <input type="text" placeholder="Search modules" class="form-control mb-3">
                         <div class="card mb-3">
                             <div class="card-header" style="padding: 0" id="headingSchool">
@@ -61,11 +61,9 @@
                             </div>
                             <div id="collapseSchool" class="collapse multi-collapse" aria-labelledby="headingSchool">
                                 <div class="card-body">
-                                    <ul>
-                                        <li>
-                                            School of Computing
-                                        </li>
-                                    </ul>
+                                    {% for field in form %}
+                                        {{ field.label }} {{ field }}<br>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

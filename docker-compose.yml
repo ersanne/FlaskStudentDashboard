@@ -1,10 +1,33 @@
 version: '3.3'
 
 services:
+  studentportal:
+    container_name: studentportal
+    ports:
+      - "8080:5000"
+    networks:
+      - studentportal:
+          aliases:
+              - flas-app
+      - mongodb
+
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - studentportal
+    volumes:
+      - ./nginx.conf:./nginx.conf
+
   mongodb:
     container_name: mongodb
     image: mongo:latest
-    restart: always
+    restart: unless-stopped
     ports:
       - "27017:27017"
     networks:
@@ -20,17 +43,12 @@ services:
   mongo-express:
     container_name: mongo-express
     image: mongo-express:latest
+    restart: unless-stopped
     networks:
-      - mongodb
-
-  studentportal:
-    container_name: studentportal
-    networks:
-      - backend
       - mongodb
 
 networks:
-    backend:
+    studentportal:
     mongodb:
 
 volumes:
