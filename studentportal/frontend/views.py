@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request, abort
 from flask_login import login_required, current_user
 
 from studentportal.frontend import bp
@@ -65,6 +65,36 @@ def profile(username):
 @bp.route('/calendar')
 def calendar():
     return render_template('calendar.html')
+
+
+@bp.route('/projects')
+def projects():
+    return render_template('project-list.html')
+
+
+@bp.route('/project/<project_slug>')
+def project_page(project_slug):
+    return render_template('project.html')
+
+
+@bp.route('/modules')
+def modules():
+    filter = request.args.get('filter')
+    if filter == 'enrolled':
+        print('Enrolled filter not implemented yet')
+        # TODO: Get enrolled modules, apply filter in mongo query
+    page = request.args.get('page', 1, type=int)
+    skips = (page - 1) * 20
+    module_data = list(mongo.db.modules.find().skip(skips).limit(20))
+    return render_template('module-list.html', data=module_data)
+
+
+@bp.route('/module/<module_code>')
+def module_page(module_code):
+    module_data = mongo.db.modules.find_one({"_id": module_code})
+    if not module_data:
+        abort(404)
+    return render_template('module.html', data=module_data).encode('utf-8')
 
 
 @bp.route('/settings')

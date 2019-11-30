@@ -1,3 +1,4 @@
+<!--suppress HtmlUnknownTarget -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
 
 <nav id="sidebar" class="sidebar">
@@ -39,28 +40,46 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="/modules">
+                <a class="sidebar-link" href="/modules?filter_by=">
                     <i class="fa fa-folder"></i>
                     My Modules
                 </a>
             </li>
             <li class="sidebar-header">
-                Shortcuts
-            </li>
-            <li class="sidebar-link">
-                <span>
-                    <i class="fa fa-thumbtack"></i>
-                    Pinned Project
-                </span>
-            </li>
-            <li class="sidebar-header">
                 Explore
             </li>
-            <li class="sidebar-link">
-                <span>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/modules">
                     <i class="fa fa-folder"></i>
                     All Modules
-                </span>
+                </a>
+            </li>
+            <li class="sidebar-header">
+                Links
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="https://my.napier.ac.uk/">
+                    <i class="fa fa-globe"></i>
+                    MyNapier
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="https://moodle.napier.ac.uk">
+                    <i class="fa fa-globe"></i>
+                    Moodle
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="https://evision.napier.ac.uk/si/sits.urd/run/siw_lgn">
+                    <i class="fa fa-globe"></i>
+                    E-Student Records
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="https://outlook.office365.com/">
+                    <i class="fa fa-envelope"></i>
+                    Email
+                </a>
             </li>
         </ul>
     </div>
