@@ -1,13 +1,15 @@
-from flask_uploads import UploadSet, IMAGES
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, BooleanField, FileField, SelectMultipleField
-
-from studentportal.models import mongo
+from wtforms import SelectMultipleField, SubmitField
 
 
 class FilterModulesForm(FlaskForm):
-    test = BooleanField('Test')
 
+    school = SelectMultipleField('School', choices=[])
+    subject = SelectMultipleField('Subject', choices=[])
+    scqf_level = SelectMultipleField('SCQF Level', choices=[])
+    delivery_location = SelectMultipleField('Location of delivery', choices=[])
+    trimester = SelectMultipleField('Trimester', choices=[])
+    term = SelectMultipleField('Term', choices=[])
+    delivery_mode = SelectMultipleField('Mode of delivery', choices=[])
 
-for school in mongo.db.modules.distinct('school'):
-    setattr(FilterModulesForm, school.replace(" ", "_").lower(), BooleanField(school))
+    submit = SubmitField('Apply')
