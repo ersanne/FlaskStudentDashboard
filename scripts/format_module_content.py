@@ -144,6 +144,10 @@ def get_instances_for_module(module_code):
                     instance['assessment']['module_subtotal'] = cells[1].contents[0].contents[0]
                 else:
                     try:
+                        assessment_type = cells[0].contents[0].strip()
+                    except:
+                        assessment_type = ''
+                    try:
                         weighting = cells[1].contents[0].strip()
                     except:
                         weighting = ''
@@ -162,6 +166,7 @@ def get_instances_for_module(module_code):
                     length_hours = ''
                     length_words = ''
                     try:
+                        split_length[0] = split_length[0].strip()
                         if split_length[0].startswith('HOURS'):
                             length_hours = split_length[0].strip()[7:]
                         elif split_length[0].startswith('WORDS'):
@@ -169,6 +174,7 @@ def get_instances_for_module(module_code):
                     except:
                         pass
                     try:
+                        split_length[1] = split_length[1].strip()
                         if split_length[1].startswith('HOURS'):
                             length_hours = split_length[0].strip()[7:]
                         elif split_length[1].startswith('WORDS'):
@@ -177,6 +183,7 @@ def get_instances_for_module(module_code):
                         pass
 
                     instance['assessment']['assessments'].append({
+                        'assessment_type': assessment_type,
                         'weighting': weighting,
                         'lo_covered': lo_covered,
                         'week_due': week_due,
@@ -250,20 +257,22 @@ def parse_reading_list_html(module):
     return module
 
 
-# modules = list(studentportal_db.modules.find({'module_code': 'CTR09109'}))
+#modules = list(studentportal_db.modules.find({'_id': 'MHN09116'}))
 modules = list(studentportal_db.modules.find())
 
 for module in modules:
-    try:
-        print(module['module_code'])
-    except:
-        continue
-    module = parse_prerequisites_html(module)
-    module = parse_module_content_description_html(module)
-    module = parse_learning_outcomes_html(module)
-    module = parse_reading_list_html(module)
-    module['teaching_instances'] = get_instances_for_module(module['module_code'])
-    module['_id'] = module['module_code']
-    module.pop('module_code')
-    studentportal_db.modules.insert_one(module)
-    studentportal_db.modules.delete_many({'module_code': module['_id']})
+    # try:
+    #     print(module['module_code'])
+    # except:
+    #     continue
+    # module = parse_prerequisites_html(module)
+    # module = parse_module_content_description_html(module)
+    # module = parse_learning_outcomes_html(module)
+    # module = parse_reading_list_html(module)
+    print(module['_id'])
+    module['teaching_instances'] = get_instances_for_module(module['_id'])
+    # module['_id'] = module['module_code']
+    # module.pop('module_code')
+    # studentportal_db.modules.insert_one(module)
+    # studentportal_db.modules.delete_many({'module_code': module['_id']})
+    studentportal_db.modules.update_one({'_id': module['_id']}, {"$set": module})
