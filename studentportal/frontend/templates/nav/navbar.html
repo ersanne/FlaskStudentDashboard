@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/searchbar.css') }}">
+
+<nav class="navbar navbar-expand navbar-light bg-white">
+    <i id="sidebar-toggle" class="nav-icon sidebar-toggle fa fa-stream"></i>
+    <form class="form-inline">
+        <input placeholder="Search..." aria-label="Search" type="text"
+               class="form-control-no-border mr-sm-2 form-control">
+    </form>
+    <li class="collapse navbar-collapse">
+        <ul class="ml-auto navbar-nav">
+            {% if current_user.is_authenticated %}
+                <li class="nav-item dropdown mr-2">
+                    <a aria-haspopup="true" href="#" class="nav-icon nav-link" data-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="far fa-comments"></i>
+                        <span class="indicator">5</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown mr-2">
+                    <a aria-haspopup="true" href="#" class="nav-icon nav-link" data-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="far fa-bell"></i>
+                        <span class="indicator">5</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown mr-2">
+                    <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                             class="avatar rounded-circle mr-1" alt="Erik Sanne">
+                        <span class="text-dark">{{ current_user.username }}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href={{ url_for('frontend.profile', username=current_user.username) }}>
+                            <i class="fa fa-user"></i>
+                            Profile
+                        </a>
+                        <a class="dropdown-item"
+                           href={{ url_for('frontend.settings', username=current_user.username) }}>
+                            <i class="fa fa-cogs"></i>
+                            Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href={{ url_for('auth.logout') }}>
+                            Sign Out
+                        </a>
+                    </div>
+                </li>
+            {% else %}
+                <li>
+                    <div class="mr-2">
+                        <a class="btn btn-primary btn-block" href="/login">
+                            Log in
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="mr-2">
+                        <a class="btn btn-primary btn-block" href="/signup">
+                            Sign up
+                        </a>
+                    </div>
+                </li>
+            {% endif %}
+        </ul>
+    </li>
+</nav>
