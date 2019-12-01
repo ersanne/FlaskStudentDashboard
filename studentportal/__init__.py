@@ -28,4 +28,7 @@ def create_app():
     from studentportal.admin import bp as admin_bp
     app.register_blueprint(admin_bp, url_prefix='/admin')
 
+    from studentportal.api import bp as api_bp
+    app.register_blueprint(api_bp, url_prefix='/api/1.0')
+
     return app
