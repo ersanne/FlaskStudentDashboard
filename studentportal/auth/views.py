@@ -5,7 +5,7 @@ from werkzeug.urls import url_parse
 from studentportal import login_manager
 from studentportal.models import mongo, User
 
-from studentportal.auth.forms import RegistrationForm, LoginForm
+from studentportal.auth.forms import RegistrationForm, LoginForm, DataSetupForm
 from studentportal.auth import bp
 
 
@@ -51,6 +51,27 @@ def signup():
         mongo.db.users.insert_one(user)
         return redirect(url_for('frontend.index'))
     return render_template('registration.html', title='Sign Up', form=form)
+
+
+@bp.route('/data-setup', methods=['GET', 'POST'])
+def data_setup():
+    if mongo.db.students.find_one({'_id': current_user.username}):
+        # User already has completed data setup, continue
+        return redirect(url_for('frontend.index'))
+
+    form = DataSetupForm()
+    if form.validate_on_submit():
+        student = {
+            'first_name': form.first_name.data,
+            'last_name': form.last_name.data,
+            'course_title': form.course_title.data,
+            'year_of_study': form.year_of_study,
+            'current_scqf_level': form.current_scqf_level,
+            'enrolled_modules': form.enrolled_modules,
+        }
+        mongo.db.students.insert_one(student)
+
+    return render_template('data-setup.html', form=form)
 
 
 @bp.route("/password_reset")

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Data setup{% endblock %}
+{% block content %}
+    <div class="container-fluid h-100">
+        <div class="row h-100 align-items-center justify-content-center">
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4 mt-1">Data setup</h4>
+                        <p>
+                            Currently this site has no access to university student data.
+                            We require the following data to properly setup your account.
+                            This data is not validated but if you do not wish to provide any data please <a
+                                href="{{ url_for('frontend.index') }}">return to the homepage as guest.</a>
+                        </p>
+                        <hr>
+                        <form action="" method="post" novalidate>
+                            {{ form.hidden_tag() }}
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        {{ form.first_name.label }}
+                                        {{ form.first_name(class='form-control') }}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        {{ form.last_name.label }}
+                                        {{ form.last_name(class='form-control') }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form.course_title.label }}
+                                {{ form.course_title(class='form-control') }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.year_of_study.label }}
+                                {{ form.year_of_study(class='form-control') }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.current_scqf_level.label }}
+                                {{ form.current_scqf_level(class='form-control') }}
+                            </div>
+                            {#                            <div class="form-group">#}
+                            {#                                {{ form.enrolled_modules.label }}#}
+                            {#                                {{ form.enrolled_modules(class='form-control') }}#}
+                            {#                            </div>#}
+                            <div class="form-group mb-0">
+                                {{ form.submit(class='btn btn-primary btn-block') }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}

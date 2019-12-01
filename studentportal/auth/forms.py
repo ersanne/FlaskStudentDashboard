@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, SelectMultipleField
 from wtforms.validators import ValidationError, InputRequired, DataRequired, EqualTo
 from studentportal.models import mongo
 
@@ -31,6 +31,16 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
+
+
+class DataSetupForm(FlaskForm):
+    first_name = StringField('First name', validators=[InputRequired()])
+    last_name = StringField('Last name', validators=[InputRequired()])
+    course_title = StringField('Course title', validators=[InputRequired()])
+    year_of_study = SelectField('Year of study', choices=[(1, 1), (8, 8)], validators=[InputRequired()])
+    current_scqf_level = SelectField('Current SCQF level', choices=[(7, 7), (8, 8)], validators=[InputRequired()])
+    # enrolled_modules = SelectMultipleField('All currently enrolled modules', choices=[], validators=[InputRequired()])
+    submit = SubmitField('Finish setup')
 
 
 class UsernameForm(FlaskForm):
