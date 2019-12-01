@@ -1,13 +1,19 @@
 {% extends 'layouts/page-layout.html' %}
 {% set page_title = "Modules" %}
+{% block head %}
+    <link href="{{ url_for('static', filename='bower_components/bootstrap-select/dist/css/bootstrap-select.min.css') }}"
+          rel="stylesheet">
+{% endblock %}
+{% block body_script %}
+    <script src="{{ url_for('static', filename='js/select2.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/bootstrap-autocomplete-2.3.0/dist/latest/bootstrap-autocomplete.min.js') }}"></script>
+{% endblock %}
 {% block main %}
     <!-- Breadcrumbs -->
     <!-- Header with filter options
          Potentially tabs per school / other selected category ?
     -->
-    <div class="row">
-
-    </div>
     <!-- List of cards, on card per module -->
     <div class="row">
         <div class="col-8">
@@ -36,14 +42,27 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="col-3">
-            <div class="card">
+        <div class="col-4">
+            <div class="card mb-3">
                 <div class="card-header">
-                    <h4 class="card-title">Categories</h4>
+                    <h4 class="card-title mb-0">Search</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" placeholder="Search modules" class="form-control mb-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title">Filter</h4>
                 </div>
                 <div class="card-body">
                     <form action="" method="post" novalidate>
-                        <input type="text" placeholder="Search modules" class="form-control mb-3">
+                    {{ form.hidden_tag() }}
+                        <!-- Filter by school -->
                         <div class="card mb-3">
                             <div class="card-header" style="padding: 0" id="headingSchool">
                                 <h3 class="mb-0">
@@ -53,7 +72,8 @@
                                             data-target="#collapseSchool" aria-expanded="false"
                                             aria-controls="collapseSchool">
                                         <div class="text-left">
-                                            School<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                            {{ form.school.label.text }}<i class="fas fa-chevron-right float-right"
+                                                                           aria-hidden="true"></i>
                                         </div>
                                     </button>
                                 </h3>
@@ -61,39 +81,207 @@
                             </div>
                             <div id="collapseSchool" class="collapse multi-collapse" aria-labelledby="headingSchool">
                                 <div class="card-body">
-                                    {% for field in form %}
-                                        {{ field.label }} {{ field }}<br>
-                                    {% endfor %}
+                                    <div class="form-group">
+                                        <select class="selectpicker form-control" name="{{ form.school.name }}"
+                                                data-live-search="true" multiple title="Any">
+                                            {% for choices in form.school.choices %}
+                                                <option>{{ choices[1] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Filter by subject -->
                         <div class="card mb-3">
                             <div class="card-header" style="padding: 0" id="headingSubject">
                                 <h3 class="mb-0">
-                                    <button class="btn btn-link btn-block collapsed" style="text-decoration: none"
+                                    <button class="btn btn-link btn-block text-left collapsed"
+                                            style="text-decoration: none"
                                             type="button"
                                             data-toggle="collapse"
                                             data-target="#collapseSubject" aria-expanded="false"
                                             aria-controls="collapseSubject">
-                                        <div class="text-left">
-                                            Subject<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
-                                        </div>
+                                        {{ form.subject.label.text }}<i class="fas fa-chevron-right float-right"
+                                                                        aria-hidden="true"></i>
                                     </button>
                                 </h3>
                             </div>
                             <div id="collapseSubject" class="collapse multi-collapse" aria-labelledby="headingSubject">
                                 <div class="card-body">
-                                    <ul>
-                                        <li>
-                                            Bruh
-                                        </li>
-                                    </ul>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <select class="selectpicker form-control" name="{{ form.subject.name }}"
+                                                        data-live-search="true" multiple title="Any">
+                                                    {% for choices in form.subject.choices %}
+                                                        <option>{{ choices[1] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-block">
-                            Submit
-                        </button>
+                        <!-- Filter by scqf level -->
+                        <div class="card mb-3">
+                            <div class="card-header" style="padding: 0" id="headingSCQFLevel">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed"
+                                            style="text-decoration: none"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseSCQFLevel" aria-expanded="false"
+                                            aria-controls="collapseSCQFLevel">
+                                        {{ form.scqf_level.label.text }}<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                    </button>
+                                </h3>
+                            </div>
+                            <div id="collapseSCQFLevel" class="collapse multi-collapse" aria-labelledby="headingSCQFLevel">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <select class="selectpicker form-control" name="{{ form.scqf_level.name }}"
+                                                        data-live-search="true" multiple title="Any">
+                                                    {% for choices in form.scqf_level.choices %}
+                                                        <option>{{ choices[1] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Filter by location of delivery -->
+                        <div class="card mb-3">
+                            <div class="card-header" style="padding: 0" id="headingDeliveryLoc">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed"
+                                            style="text-decoration: none"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseDeliveryLoc" aria-expanded="false"
+                                            aria-controls="collapseDeliveryLoc">
+                                        {{ form.delivery_location.label.text }}<i class="fas fa-chevron-right float-right"
+                                                               aria-hidden="true"></i>
+                                    </button>
+                                </h3>
+                            </div>
+                            <div id="collapseDeliveryLoc" class="collapse multi-collapse" aria-labelledby="headingDeliveryLoc">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <select class="selectpicker form-control" name="{{ form.delivery_location.name }}"
+                                                        data-live-search="true" multiple title="Any">
+                                                    {% for choice in form.delivery_location.choices %}
+                                                        <option>{{ choice[1] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Filter by trimester -->
+                        <div class="card mb-3">
+                            <div class="card-header" style="padding: 0" id="headingTrimester">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed"
+                                            style="text-decoration: none"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseTrimester" aria-expanded="false"
+                                            aria-controls="collapseTrimester">
+                                        {{ form.trimester.label.text }}<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                    </button>
+                                </h3>
+                            </div>
+                            <div id="collapseTrimester" class="collapse multi-collapse" aria-labelledby="headingTrimester">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <select class="selectpicker form-control" name="{{ form.trimester.name }}"
+                                                        data-live-search="true" multiple title="Any">
+                                                    {% for choice in form.trimester.choices %}
+                                                        <option>{{ choice[1] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Filter by term -->
+                        <div class="card mb-3">
+                            <div class="card-header" style="padding: 0" id="headingYear">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed"
+                                            style="text-decoration: none"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseYear" aria-expanded="false"
+                                            aria-controls="collapseYear">
+                                        {{ form.term.label.text }}<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                    </button>
+                                </h3>
+                            </div>
+                            <div id="collapseYear" class="collapse multi-collapse" aria-labelledby="headingYear">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <select class="selectpicker form-control" name="{{ form.term.name }}"
+                                                        data-live-search="true" multiple title="Any">
+                                                    {% for choice in form.term.choices %}
+                                                        <option>{{ choice[1] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Filter by mode of delivery -->
+                        <div class="card mb-3">
+                            <div class="card-header" style="padding: 0" id="headingDeliveryMode">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed"
+                                            style="text-decoration: none"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseDeliveryMode" aria-expanded="false"
+                                            aria-controls="collapseDeliveryMode">
+                                        {{ form.delivery_mode.label.text }}<i class="fas fa-chevron-right float-right"
+                                                           aria-hidden="true"></i>
+                                    </button>
+                                </h3>
+                            </div>
+                            <div id="collapseDeliveryMode" class="collapse multi-collapse" aria-labelledby="headingDeliveryMode">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <select class="selectpicker form-control" name="{{ form.delivery_mode.name }}"
+                                                        data-live-search="true" multiple title="Any">
+                                                    {% for choice in form.delivery_mode.choices %}
+                                                        <option>{{ choice[1] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form.submit(class='form-control btn btn-primary btn-block') }}
                     </form>
                 </div>
             </div>

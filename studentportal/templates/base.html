@@ -9,7 +9,7 @@
     <link href="{{ url_for('static', filename='bower_components/cropperjs/dist/cropper.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='bower_components/select2/dist/css/select2.min.css') }}"
           rel="stylesheet"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
     {% block head %}{% endblock %}
 </head>
@@ -38,7 +38,7 @@
 {% endwith %}
 {% block content %}{% endblock %}
 <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url_for('static', filename='bower_components/cropperjs/dist/cropper.js') }}"></script>
 <script src="{{ url_for('static', filename='bower_components/jquery-cropper/dist/jquery-cropper.js') }}"></script>
 <script src="{{ url_for('static', filename='bower_components/select2/dist/js/select2.min.js') }}"></script>

@@ -5,7 +5,278 @@
         <div class="col-6">
             <div class="card mb-3">
                 <div class="card-body">
-                    <h4>Prerequisites</h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    Module code:
+                                </div>
+                                <div class="col-8">
+                                    {{ data['_id'] }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Module leader:
+                                </div>
+                                <div class="col-8">
+                                    <a href="mailto:{{ data['module_leader']['email'] }}">{{ data['module_leader']['name'] }}</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    School:
+                                </div>
+                                <div class="col-8">
+                                    {{ data['school'] }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Subject area group:
+                                </div>
+                                <div class="col-8">
+                                    {{ data['subject_area_group'] }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    SCQF level:
+                                </div>
+                                <div class="col-8">
+                                    {{ data['scqf_level'] }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    SCQF credit value:
+                                </div>
+                                <div class="col-8">
+                                    {{ data['scqf_credit_value'] }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    ECTS credit value:
+                                </div>
+                                <div class="col-8">
+                                    {{ data['ects_credit_value'] }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    {% for instance in data['teaching_instances'] %}
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed"
+                                            style="text-decoration: none"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseInstance{{ loop.index }}" aria-expanded="false"
+                                            aria-controls="collapseInstance{{ loop.index }}">
+                                        {{ instance['term'] }}, {{ instance['trimester'] }}, {{ instance['delivery_mode'] }}, {{ instance['partner'] }}<i
+                                            class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                    </button>
+                                </h3>
+                            </div>
+                            <div id="collapseInstance{{ loop.index }}" class="collapse multi-collapse"
+                                 aria-labelledby="collapseInstance">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-4 ml-3">
+                                            Occurrence:
+                                        </div>
+                                        <div class="col-4">
+                                            {{ instance['occurrence'] }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 ml-3">
+                                            Primary mode of delivery:
+                                        </div>
+                                        <div class="col-4">
+                                            {{ instance['delivery_mode'] }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 ml-3">
+                                            Location of delivery:
+                                        </div>
+                                        <div class="col-4">
+                                            {{ instance['delivery_location'] }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 ml-3">
+                                            Partner:
+                                        </div>
+                                        <div class="col-4">
+                                            {{ instance['partner'] }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 ml-3">
+                                            Member of staff responsible for delivering module:
+                                        </div>
+                                        <div class="col-4 align-self-center">
+                                            <a class=""
+                                               href="mailto:{{ instance['delivery_staff_member']['email'] }}">{{ instance['delivery_staff_member']['name'] }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-4 ml-3">
+                                            Module Organiser:
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="mailto:{{ instance['module_organiser']['email'] }}">{{ instance['module_organiser']['name'] }}</a>
+                                        </div>
+                                    </div>
+                                    <h5><b>Learning, Teaching and Assessment (LTA) Approach:</b></h5>
+                                    <p>
+                                        {% for line in instance['lta_approach'] %}
+                                            {{ line }}<br>
+                                        {% endfor %}
+                                    </p>
+                                    <h5><b>Formative Assessment:</b></h5>
+                                    <p>
+                                        {% for line in instance['formative_assessment'] %}
+                                            {{ line }}<br>
+                                        {% endfor %}
+                                    </p>
+                                    <h5><b>Summative Assessment:</b></h5>
+                                    <p>
+                                        {% for line in instance['summative_assessment'] %}
+                                            {{ line }}<br>
+                                        {% endfor %}
+                                    </p>
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th colspan="3">Student Activity (Notional Equivalent Study Hours (NESH))
+                                            </th>
+                                        </tr>
+
+                                        </thead>
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Mode of activity</th>
+                                            <th scope="col">Learning & Teaching Activity</th>
+                                            <th scope="col">NESH (Study Hours)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for activity in instance['student_activity']['activities'] %}
+                                            <tr>
+                                                <td>{{ activity['mode'] }}</td>
+                                                <td>{{ activity['type'] }}</td>
+                                                <td>{{ activity['study_hours'] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                Total Study Hours
+                                            </td>
+                                            <td>
+                                                {{ instance['student_activity']['total_study_hours'] }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                Expected Total Study Hours for Module
+                                            </td>
+                                            <td>
+                                                {{ instance['student_activity']['expected_total_study_'] }}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-hover">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th colspan="6">Assessment</th>
+                                        </tr>
+                                        </thead>
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Type of Assessment</th>
+                                            <th scope="col">Weighting %</th>
+                                            <th scope="col">LOs covered</th>
+                                            <th scope="col">Week due</th>
+                                            <th scope="col">Length in hours</th>
+                                            <th scope="col">Length in words</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for assessment in instance['assessment']['assessments'] %}
+                                            <tr>
+                                                <td>{{ assessment['assessment_type'] }}</td>
+                                                <td>{{ assessment['weighting'] }}</td>
+                                                <td>{{ assessment['lo_covered'] }}</td>
+                                                <td>{{ assessment['week_due'] }}</td>
+                                                <td>{{ assessment['length_hours'] }}</td>
+                                                <td>{{ assessment['length_words'] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td>
+                                                Component 1 subtotal:
+                                            </td>
+                                            <td>
+                                                {{ instance['assessment']['component1_subtotal'] }}
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Component 2 subtotal:
+                                            </td>
+                                            <td>
+                                                {{ instance['assessment']['component2_subtotal'] }}
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Module subtotal:
+                                            </td>
+                                            <td>
+                                                {{ instance['assessment']['module_subtotal'] }}
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">Prerequisites</h4>
+                </div>
+                <div class="card-body">
                     <p>
                         {% for line in data['prerequisites'] %}
                             {{ line }}
@@ -15,8 +286,10 @@
                 </div>
             </div>
             <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">Description of module content</h4>
+                </div>
                 <div class="card-body">
-                    <h4>Description of module content:</h4>
                     <p>
                         {% for line in data['module_content_description'] %}
                             {{ line }}
@@ -26,8 +299,10 @@
                 </div>
             </div>
             <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">Learning Outcomes for module</h4>
+                </div>
                 <div class="card-body">
-                    <h4>Learning Outcomes for module:</h4>
                     <p>
                         {% for line in data['learning_outcomes'] %}
                             {{ line }}
@@ -37,41 +312,5 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Teaching instances</h4>
-                </div>
-                <div class="card-body">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="mb-0">
-                                <button class="btn btn-link collapsed" style="text-decoration: none" type="button"
-                                        data-toggle="collapse"
-                                        data-target="#collapseSchool" aria-expanded="true"
-                                        aria-controls="collapseSchool">
-                                    Instance 1<span class="glyphicon glyphicon-chevron-right pull-right"
-                                                    aria-hidden="true"></span>
-                                </button>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="mb-0">
-                                <button class="btn btn-link collapsed" style="text-decoration: none" type="button"
-                                        data-toggle="collapse"
-                                        data-target="#collapseSchool" aria-expanded="true"
-                                        aria-controls="collapseSchool">
-                                    Instance 1<span class="glyphicon glyphicon-chevron-right pull-right"
-                                                    aria-hidden="true"></span>
-                                </button>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-
 {% endblock %}

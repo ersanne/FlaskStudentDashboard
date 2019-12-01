@@ -1,9 +1,9 @@
 {% extends "layouts/page-layout.html" %}
-{% from "includes/image-cropper-modal.html" import image_cropper_modal with context %}
+{% from "modals/image-cropper-modal.html" import image_cropper_modal with context %}
 {% set page_title = "Create your profile" %}
 
 {% block body_script %}
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/select2.js') }}"></script>
 {% endblock %}
 
 {% block main %}
@@ -34,12 +34,12 @@
                                 <div class="row">
                                     <div class="col">
                                         {{ form.skills.label }}
-                                        <select class="select2-multiple" name="{{ form.skills.name }}"
+                                        <select class="select2-skills" name="{{ form.skills.name }}"
                                                 multiple="multiple"
                                                 style="width: 100%;">
-{#                                            {% for option in form.skills.options %}#}
-{#                                                <option value="{{ option[0] }}">{{ option[1] }}</option>#}
-{#                                            {% endfor %}#}
+                                            {#                                            {% for option in form.skills.options %}#}
+                                            {#                                                <option value="{{ option[0] }}">{{ option[1] }}</option>#}
+                                            {#                                            {% endfor %}#}
                                         </select>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                         {{ form.submit(class='btn btn-primary btn-block') }}
                     </div>
                 </div>
-                {% include 'includes/form-errors-alert.html' %}
+                {% include 'modals/form-errors-alert.html' %}
             </form>
         </div>
     </div>

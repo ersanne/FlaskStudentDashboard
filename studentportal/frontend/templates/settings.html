@@ -2,10 +2,10 @@
 {% set page_title = "Settings" %}
 
 {% block main %}
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-2">
+    <div class="row">
+        <div class="col-2">
+            <div class="card">
+                <div class="card-body">
                     <div class="nav flex-column nav-pills" id="settings-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="settings-account-tab" data-toggle="pill" href="#settings-account"
                            role="tab"
@@ -23,7 +23,11 @@
                            aria-controls="settings-profile" aria-selected="false">Privacy</a>
                     </div>
                 </div>
-                <div class="col-10">
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card">
+                <div class="card-body">
                     <div class="tab-content" id="settings-tabContent">
                         <div class="tab-pane fade show active" id="settings-account" role="tabpanel"
                              aria-labelledby="settings-account-tab">...
