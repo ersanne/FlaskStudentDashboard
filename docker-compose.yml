@@ -3,17 +3,20 @@ version: '3.3'
 services:
   studentportal:
     container_name: studentportal
+    depends_on:
+      - webserver
+      - mongodb
     ports:
       - "8080:5000"
     networks:
       - studentportal:
           aliases:
-              - flas-app
+              - flask-app
       - mongodb
 
   webserver:
-    image: nginx:alpine
     container_name: webserver
+    image: nginx:alpine
     restart: unless-stopped
     tty: true
     ports:
@@ -33,17 +36,21 @@ services:
     networks:
       - mongodb
     volumes:
+      - ./mongo-seed:/mongo-seed
       - "assets:/data/assets"
       - "mongodb-data:/data/db"
     environment:
       MONGO_INITDB_DATABASE="studentportal"
       MONGO_INITDB_ROOT_USERNAME=mongo_user
       MONGO_INITDB_ROOT_PASSWORD=mongo_secret
+    command: /mongo-seed/import.sh
 
   mongo-express:
     container_name: mongo-express
     image: mongo-express:latest
     restart: unless-stopped
+    depends_on:
+      - mongodb
     networks:
       - mongodb
 
