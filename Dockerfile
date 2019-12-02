@@ -12,6 +12,7 @@ RUN pip install gunicorn
 WORKDIR /home/studentportal
 
 # Copy app and startup script
+COPY instance instance
 COPY studentportal studentportal
 COPY wsgi.py config.py bower.json ./
 
