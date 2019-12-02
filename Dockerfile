@@ -2,30 +2,24 @@ FROM ubuntu:18.04
 MAINTAINER Erik Sanne <studentportal@eriksanne.com>
 
 # install our dependencies and nodejs
-RUN apt-get update && RUN apt-get -y install python-pip python-dev
-RUN apt-get update && RUN apt-get -y install nodejs
+RUN apt-get update && apt-get -y install python-pip python-dev
+RUN apt-get update && apt-get -y install nodejs
 
 # Python environment
 COPY requirements.txt requirements.txt
-RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
-RUN venv/bin/pip install gunicorn
-
-RUN adduser -D studentportal
+RUN pip install -r requirements.txt
+RUN pip install gunicorn
 
 WORKDIR /home/studentportal
 
-# install bower
-RUN npm install --global bower
-RUN bower install
-
 # Copy app and startup script
 COPY studentportal studentportal
-COPY run.py config.py ./
-RUN chmod +x boot.sh
+COPY wsgi.py config.py bower.json ./
 
-# Switch to studentportal user
-USER studentportal
+# install bower
+RUN npm install --global bower
+# install dependencies
+RUN bower install
 
 # Run app on port 5000
 EXPOSE 5000
