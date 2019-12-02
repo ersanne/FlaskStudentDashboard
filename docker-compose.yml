@@ -9,6 +9,9 @@ services:
     networks:
       - frontend
       - database
+    environment:
+      - SECRET_KEY=you-will-never-guess
+      - MONGO_URI=mongodb://mongo_user:mongo_secret@mongodb:27017/studentportal
 
   webserver:
     container_name: webserver
