@@ -22,4 +22,5 @@ RUN npm install --global bower
 RUN bower install --allow-root
 
 # Run app on port 5000
+EXPOSE 5000
 CMD ["gunicorn", "-b", ":5000", "wsgi:app"]

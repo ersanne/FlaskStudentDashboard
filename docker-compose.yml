@@ -3,12 +3,9 @@ version: '3.3'
 services:
   studentportal:
     container_name: studentportal
-    depends_on:
-      - webserver
-      - mongodb
     build: .
-    ports:
-      - "5000:5000"
+    depends_on:
+      - mongodb
     networks:
       - frontend
       - database
@@ -18,6 +15,8 @@ services:
     image: nginx:alpine
     restart: unless-stopped
     tty: true
+    depends_on:
+      - studentportal
     ports:
       - "80:80"
       - "443:443"
