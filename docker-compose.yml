@@ -38,7 +38,11 @@ services:
       - MONGO_INITDB_DATABASE=studentportal
       - MONGO_INITDB_ROOT_USERNAME=mongo_user
       - MONGO_INITDB_ROOT_PASSWORD=mongo_secret
-    command: mongorestore ./mongo-seed/studentportal-dump
+
+  mongo-seed:
+    build: ./mongo-seed
+    networks:
+      - database
 
   mongo-express:
     container_name: mongo-express
