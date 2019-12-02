@@ -10,5 +10,5 @@ class Config:
     DEBUG = False
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     WTF_CSRF_ENABLED = True
-    MONGO_URI = os.environ.get('MONGO_URI') or 'mongodb://mongo_user:mongo_secret@mongodb:27017/studentportal'
+    MONGO_URI = os.environ.get('MONGO_URI') or 'mongodb://mongo_user:mongo_secret@mongodb:27017/'
     UPLOAD_FOLDER = '/data/assets'
