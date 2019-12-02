@@ -2,8 +2,7 @@ FROM ubuntu:18.04
 MAINTAINER Erik Sanne <studentportal@eriksanne.com>
 
 # install our dependencies and nodejs
-RUN apt-get update && apt-get -y install python-pip python-dev
-RUN apt-get update && apt-get -y install nodejs
+RUN apt-get update && apt-get -y install python-pip python-dev git npm
 
 # Python environment
 COPY requirements.txt requirements.txt
@@ -19,7 +18,7 @@ COPY wsgi.py config.py bower.json ./
 # install bower
 RUN npm install --global bower
 # install dependencies
-RUN bower install
+RUN bower install --allow-root
 
 # Run app on port 5000
 EXPOSE 5000
