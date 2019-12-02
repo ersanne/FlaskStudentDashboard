@@ -1,4 +1,4 @@
 FROM mongo
-COPY studentportal-dump studentportal-dump
+COPY studentportal studentportal
 
-CMD ["mongorestore", "--host", "mongodb", "--drop", "/mongo-seed/studentportal-dump"]
+CMD ["mongorestore", "--host", "mongodb", "-d", "studentportal", "--drop", "studentportal"]
