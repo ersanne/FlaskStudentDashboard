@@ -15,84 +15,99 @@
                     <h5 class="mb-0 card-title">Profile Details</h5>
                 </div>
                 <div class="card-body text-center">
-                    <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.jpg') }}"
+                    <img src="{{ upload_folder }}/{{profile.profile_picture_url }}"
                          class="rounded-circle" width="128" height="128" alt="">
                     <h4>
                         {{ profile.first_name }} {{ profile.last_name }}
                     </h4>
-                    <div class="text-muted"> {#TODO#}
-                        4th Year<br>
-                        BEng (Hons) Software Engineering S/W
+                    <div class="text-muted">
+                        {% if student.year_of_study == '1' %}
+                            {{ student.year_of_study }}st Year<br>
+                        {% elif student.year_of_study == '2' %}
+                            {{ student.year_of_study }}nd Year<br>
+                        {% elif student.year_of_study == '3' %}
+                            {{ student.year_of_study }}rd Year<br>
+                        {% else %}
+                            {{ student.year_of_study }}th Year<br>
+                        {% endif %}
+                        {{ student.course_title }}
                     </div>
                 </div>
-                <hr class="my-0">
-                <div class="card-body">
-                    <h5 class="card-title">Skills</h5>
-                    {% for skill in profile.skills %}
-                        <span class="mr-1 my-1 badge badge-primary">{{ skill }}</span>
-                    {% endfor %}
-                </div>
-                <hr class="my-0">
-                <div class="card-body">
-                    <h5 class="card-title">About</h5>
-                    <ul class="list-unstyled mb-0">
-                        {% if profile.company %}
-                            <li class="mb-1">
-                                <i class="fa fa-building fa-fw mr-1"></i>Works at <a href="/">{{ profile.company }}</a>
-                            </li>
-                        {% endif %}
-                        {% if profile.location %}
-                            <li class="mb-1">
-                                <i class="fa fa-home fa-fw mr-1"></i>Lives in <a href="/">{{ profile.location }}</a>
-                            </li>
-                        {% endif %}
-                        {% if profile.home_location %}
-                            <li class="mb-1"><i class="fa fa-map-marker-alt fa-fw mr-1"></i>From <a
-                                    href="/">{{ profile.home_location }}</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
-                <hr class="my-0">
-                <div class="card-body"> {#TODO#}
-                    <h5 class="card-title">Campus</h5>
-                    <div>
-                        <i class="fa fa-university fa-fw mr-1"></i>Merchiston Campus
+                {% if profile.skills %}
+                    <hr class="my-0">
+                    <div class="card-body">
+                        <h5 class="card-title">Skills</h5>
+                        {% for skill in profile.skills %}
+                            <span class="mr-1 my-1 badge badge-primary">{{ skill }}</span>
+                        {% endfor %}
                     </div>
-                    <div>
-                        <i class="fa fa-map-marker-alt fa-fw mr-1"></i>10 Colinton Road, EH10 5DT, Edinburgh
+                {% endif %}
+                {% if profile.company or profile.location or profile.home_location %}
+                    <hr class="my-0">
+                    <div class="card-body">
+                        <h5 class="card-title">About</h5>
+                        <ul class="list-unstyled mb-0">
+                            {% if profile.company %}
+                                <li class="mb-1">
+                                    <i class="fa fa-building fa-fw mr-1"></i>Works at <a
+                                        href="/">{{ profile.company }}</a>
+                                </li>
+                            {% endif %}
+                            {% if profile.location %}
+                                <li class="mb-1">
+                                    <i class="fa fa-home fa-fw mr-1"></i>Lives in <a href="/">{{ profile.location }}</a>
+                                </li>
+                            {% endif %}
+                            {% if profile.home_location %}
+                                <li class="mb-1"><i class="fa fa-map-marker-alt fa-fw mr-1"></i>From <a
+                                        href="/">{{ profile.home_location }}</a>
+                                </li>
+                            {% endif %}
+                        </ul>
                     </div>
-                </div>
-                <hr class="my-0">
-                <div class="card-body">
-                    <h5 class="card-title">Social</h5>
-                    <ul class="list-unstyled mb-0">
-                        {% if profile.website %}
-                            <li class="mb-1">
-                                <i class="fa fa-globe fa-fw mr-1"></i><a
-                                    href="{{ profile.website }}">{{ profile.website }}</a>
-                            </li>
-                        {% endif %}
-                        {% if profile.linked_in %}
-                            <li class="mb-1">
-                                <i class="fab fa-linkedin fa-fw mr-1"></i><a
-                                    href="https://www.linkedin.com/in/{{ profile.linked_in }}/">{{ profile.linked_in }}</a>
-                            </li>
-                        {% endif %}
-                        {% if profile.twitter %}
-                            <li class="mb-1">
-                                <i class="fab fa-twitter fa-fw mr-1"></i><a
-                                    href="https://twitter.com/{{ profile.twitter }}">{{ profile.twitter }}</a>
-                            </li>
-                        {% endif %}
-                        {% if profile.instagram %}
-                            <li class="mb-1">
-                                <i class="fab fa-instagram fa-fw mr-1"></i><a
-                                    href="https://www.instagram.com/{{ profile.instagram }}/">{{ profile.instagram }}</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
+                {% endif %}
+                {#                <hr class="my-0">#}
+                {#                <div class="card-body">#}
+                {#                    <h5 class="card-title">Campus</h5>#}
+                {#                    <div>#}
+                {#                        <i class="fa fa-university fa-fw mr-1"></i>Merchiston Campus#}
+                {#                    </div>#}
+                {#                    <div>#}
+                {#                        <i class="fa fa-map-marker-alt fa-fw mr-1"></i>10 Colinton Road, EH10 5DT, Edinburgh#}
+                {#                    </div>#}
+                {#                </div>#}
+                {% if profile.website or profile.linked_in or profile.twitter or profile.instagram %}
+                    <hr class="my-0">
+                    <div class="card-body">
+                        <h5 class="card-title">Social</h5>
+                        <ul class="list-unstyled mb-0">
+                            {% if profile.website %}
+                                <li class="mb-1">
+                                    <i class="fa fa-globe fa-fw mr-1"></i><a
+                                        href="{{ profile.website }}">{{ profile.website }}</a>
+                                </li>
+                            {% endif %}
+                            {% if profile.linked_in %}
+                                <li class="mb-1">
+                                    <i class="fab fa-linkedin fa-fw mr-1"></i><a
+                                        href="https://www.linkedin.com/in/{{ profile.linked_in }}/">{{ profile.linked_in }}</a>
+                                </li>
+                            {% endif %}
+                            {% if profile.twitter %}
+                                <li class="mb-1">
+                                    <i class="fab fa-twitter fa-fw mr-1"></i><a
+                                        href="https://twitter.com/{{ profile.twitter }}">{{ profile.twitter }}</a>
+                                </li>
+                            {% endif %}
+                            {% if profile.instagram %}
+                                <li class="mb-1">
+                                    <i class="fab fa-instagram fa-fw mr-1"></i><a
+                                        href="https://www.instagram.com/{{ profile.instagram }}/">{{ profile.instagram }}</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="col">

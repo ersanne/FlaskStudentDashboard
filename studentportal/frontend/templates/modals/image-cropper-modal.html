@@ -1,4 +1,4 @@
-{% macro image_cropper_modal(fileInputId, modalId) %}
+{% macro image_cropper_modal(fileInputId, modalId, preview) %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/cropper.css') }}">
     <div id="{{ modalId }}" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -22,7 +22,6 @@
                 </div>
             </div>
         </div>
-        <img id="image" src="">
     </div>
 
     <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
@@ -30,7 +29,7 @@
         $(function () {
             let canvas = $('#canvas'),
                 context = canvas.get(0).getContext("2d"),
-                $result = $('#result');
+                $result = $('#{{ preview }}');
 
             $('#{{ fileInputId }}').on('click', function () {
                 $(this).val("");
@@ -69,12 +68,9 @@
                             $('#saveBtn').click(function () {
                                 // Get a string base 64 data url
                                 var croppedImageDataURL = canvas.cropper('getCroppedCanvas').toDataURL("image/png");
-                                $result.append($('<img>').attr('src', croppedImageDataURL));
+                                $('#{{ fileInputId }}').data = croppedImageDataURL;
+                                $result.attr('src', croppedImageDataURL);
                             });
-                            //$('#btnRestore').click(function () {
-                            //    canvas.cropper('reset');
-                            //    $result.empty();
-                            //});
                         };
                         img.src = evt.target.result;
                     };

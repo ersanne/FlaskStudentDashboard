@@ -13,7 +13,7 @@
                     <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown"
                        aria-haspopup="true"
                        aria-expanded="false">
-                        <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.jpg') }}"
+                        <img src="{{ upload_folder }}/{{profile.profile_picture_url }}"
                              class="avatar rounded-circle mr-1" alt="">
                         <span class="text-dark">{{ current_user.username }}</span>
                     </a>

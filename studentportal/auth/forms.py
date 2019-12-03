@@ -34,6 +34,8 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Sign Up')
 
     def validate_username(form, field):
+        if field.data.endswith('@live.napier.ac.uk'):
+            field.data = field.data[:-18]
         user = mongo.db.users.find_one({"_id": field.data})
         if user:
             raise ValidationError('User is already registered.')
@@ -50,15 +52,13 @@ class DataSetupForm(FlaskForm):
     submit = SubmitField('Finish setup')
 
 
-class UsernameForm(FlaskForm):
-    username = StringField('Matriculation Number', validators=[InputRequired(), username()])
-
-
 class RequestPasswordResetForm(FlaskForm):
     username = StringField('Matriculation Number or Email', validators=[InputRequired()])
     submit = SubmitField('Request password reset')
 
     def validate_username(form, field):
+        if field.data.endswith('@live.napier.ac.uk'):
+            field.data = field.data[:-18]
         user = mongo.db.users.find_one({"_id": field.data})
         if not user:
             raise ValidationError('User not found!')

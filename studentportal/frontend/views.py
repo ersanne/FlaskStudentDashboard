@@ -1,5 +1,8 @@
-from flask import render_template, redirect, url_for, request, abort
+from flask import render_template, redirect, url_for, request, abort, current_app, flash
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
+import os
+import uuid
 
 from studentportal.frontend import bp
 from studentportal.models import mongo
@@ -41,10 +44,15 @@ def todo():
 @bp.route('/u/<username>', methods=['GET', 'POST'])
 def profile(username):
     profile_data = mongo.db.profiles.find_one({"_id": username})
+    student_data = mongo.db.students.find_one({"_id": username})
     if profile_data is None:
         if current_user.is_authenticated and current_user.get_id() == username:
             form = CreateProfileForm()
             if form.validate_on_submit():
+                unique_filename = uuid.uuid4().hex
+                file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], 'img', unique_filename)
+                form.profile_picture.data.save(file_path)
+
                 profile_json = {
                     "_id": username,
                     "skills": form.skills.data,
@@ -56,15 +64,17 @@ def profile(username):
                     "twitter": form.twitter.data,
                     "instagram": form.instagram.data,
                     "about": form.about.data,
-                    "profile_picture_url": 'todo'
+                    "profile_picture_url": '/img/' + unique_filename,
+                    "portfolio_enabled": False,
+                    "activity_enabled": False
                 }
                 mongo.db.profiles.insert_one(profile_json)
                 return redirect(url_for('frontend.profile', username=username))
-            return render_template('create_profile.html', form=form,
-                                   student=mongo.db.students.find_one({"_id": username}))
+            return render_template('create_profile.html', form=form, student=student_data)
         else:
             return redirect(url_for('auth.login'))
-    return render_template('profile.html', profile=profile_data)
+    return render_template('profile.html', profile=profile_data, student=student_data,
+                           upload_folder=current_app.config['UPLOAD_FOLDER'])
 
 
 @bp.route('/calendar')
@@ -185,4 +195,5 @@ def module_page(module_code):
 @bp.route('/settings')
 @login_required
 def settings():
+    flash('Settings are currently unavailable')
     return render_template('settings.html')

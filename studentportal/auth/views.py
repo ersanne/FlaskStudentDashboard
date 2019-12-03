@@ -26,7 +26,10 @@ def login():
         return redirect(url_for('frontend.index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = mongo.db.users.find_one({"_id": form.username.data})
+        username = form.username.data
+        if username.endswith('@live.napier.ac.uk'):
+            username = username[:-18]
+        user = mongo.db.users.find_one({"_id": username})
         if User.validate_login(user, form.password.data):
             login_user(User(user))
             if not user['data_setup_complete']:

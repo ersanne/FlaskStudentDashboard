@@ -22,10 +22,13 @@
                             <div class="col-9">
                                 <h5>{{ module['module_title'] }}</h5><h6>{{ module['_id'] }}</h6>
                             </div>
-                            <div class="col-3 text-right">
-                                <a href="/module/add/{{ module['_id'] }}" class="btn btn-secondary btn-block">Add to my
-                                    modules</a><br>
-                            </div>
+                            {% if current_user.is_authorised %}
+                                <div class="col-3 text-right">
+                                    <a href="/module/add/{{ module['_id'] }}" class="btn btn-secondary btn-block">Add to
+                                        my
+                                        modules</a><br>
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="row">
                             <div class="col-9">
