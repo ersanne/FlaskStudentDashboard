@@ -9,6 +9,8 @@ services:
     networks:
       - frontend
       - database
+    volumes:
+      - assets/:/data/assets/
     environment:
       - SECRET_KEY=you-will-never-guess
       - MONGO_URI=mongodb://flask-app:E9T8ydKeCvfc@mongodb:27017/studentportal
@@ -28,6 +30,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./studentportal/static/:/static/
+      - ./assets/:/assets/
 
   mongodb:
     container_name: mongodb
