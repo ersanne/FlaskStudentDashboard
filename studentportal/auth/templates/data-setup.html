@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Data setup{% endblock %}
+{% block body_script %}
+    <script src="{{ url_for('static', filename='js/select2.js') }}"></script>
+{% endblock %}
 {% block content %}
     <div class="container-fluid h-100">
         <div class="row h-100 align-items-center justify-content-center">
@@ -30,24 +33,44 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                {{ form.course_title.label }}
-                                {{ form.course_title(class='form-control') }}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        {{ form.course_title.label }}
+                                        {{ form.course_title(class='form-control') }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                {{ form.year_of_study.label }}
-                                {{ form.year_of_study(class='form-control') }}
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        {{ form.year_of_study.label }}
+                                        {{ form.year_of_study(class='form-control') }}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        {{ form.current_scqf_level.label }}
+                                        {{ form.current_scqf_level(class='form-control') }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                {{ form.current_scqf_level.label }}
-                                {{ form.current_scqf_level(class='form-control') }}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        {{ form.enrolled_modules.label }}
+                                        <select class="select2-skills" name="{{ form.enrolled_modules.name }}"
+                                                multiple="multiple" style="width: 100%;">
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            {#                            <div class="form-group">#}
-                            {#                                {{ form.enrolled_modules.label }}#}
-                            {#                                {{ form.enrolled_modules(class='form-control') }}#}
-                            {#                            </div>#}
-                            <div class="form-group mb-0">
-                                {{ form.submit(class='btn btn-primary btn-block') }}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group mb-0">
+                                        {{ form.submit(class='btn btn-primary btn-block') }}
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

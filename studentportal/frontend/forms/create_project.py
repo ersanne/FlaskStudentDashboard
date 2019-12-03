@@ -11,18 +11,9 @@ from .util import Select2MultipleField
 class CreateProfileForm(FlaskForm):
 
     # User details
-    location = StringField('City')
-    home_location = StringField('Home City')
-    company = StringField('Work')
-    website = StringField('Website')
-    linked_in = StringField('LinkedIn')
-    facebook = StringField('Facebook')
-    twitter = StringField('Twitter')
-    instagram = StringField('Instagram')
-    about = TextAreaField('About')
-
-    # Skills select2 field
-    skills = Select2MultipleField('Skills', choices=[])
+    project_title = StringField('Title', validators=[InputRequired()])
+    description = TextAreaField('Description', validators=[])
+    members = Select2MultipleField('Members')
 
     # Picture
     images = UploadSet('images', IMAGES)

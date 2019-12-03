@@ -11,21 +11,20 @@
 {% endblock %}
 {% block main %}
     <!-- Breadcrumbs -->
-    <!-- Header with filter options
-         Potentially tabs per school / other selected category ?
-    -->
+    <!-- Potentially tabs per school / other selected category ? -->
     <!-- List of cards, on card per module -->
     <div class="row">
         <div class="col-8">
             {% for module in data %}
-                <div class="card m-1">
+                <div class="card mb-1">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-9">
                                 <h5>{{ module['module_title'] }}</h5><h6>{{ module['_id'] }}</h6>
                             </div>
                             <div class="col-3 text-right">
-                                <a class="btn btn-secondary btn-block"> Add to my modules</a><br>
+                                <a href="/module/add/{{ module['_id'] }}" class="btn btn-secondary btn-block">Add to my
+                                    modules</a><br>
                             </div>
                         </div>
                         <div class="row">
@@ -34,7 +33,7 @@
                                 SCQF Level: {{ module['scqf_level'] }} | SQCF Credits: {{ module['scqf_credit_value'] }}
                             </div>
                             <div class="col-3 text-right">
-                                <a href="/module/{{ module['_id'] }}" class="btn btn-secondary btn-block">View
+                                <a href="/module/{{ module['_id'] }}" class="btn btn-primary btn-block">View
                                     details</a>
                             </div>
                         </div>
@@ -50,18 +49,37 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <input type="text" placeholder="Search modules" class="form-control mb-3">
+                            <select class="select2-modules form-control" name="search-modules"
+                                    style="width: 100%;">
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <h4 class="card-title">Filter</h4>
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Sort</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <select class="selectpicker form-control" name="{{ form.sort.name }}"
+                                        data-live-search="true">
+                                    {% for choice in form.sort.choices %}
+                                        <option value="{{ choice[0] }}">{{ choice[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form action="" method="post" novalidate>
-                    {{ form.hidden_tag() }}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4 class="card-title">Filter</h4>
+                    </div>
+                    <div class="card-body">
                         <!-- Filter by school -->
                         <div class="card mb-3">
                             <div class="card-header" style="padding: 0" id="headingSchool">
@@ -84,8 +102,8 @@
                                     <div class="form-group">
                                         <select class="selectpicker form-control" name="{{ form.school.name }}"
                                                 data-live-search="true" multiple title="Any">
-                                            {% for choices in form.school.choices %}
-                                                <option>{{ choices[1] }}</option>
+                                            {% for choice in form.school.choices %}
+                                                <option>{{ choice[1] }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -114,8 +132,8 @@
                                             <div class="form-group">
                                                 <select class="selectpicker form-control" name="{{ form.subject.name }}"
                                                         data-live-search="true" multiple title="Any">
-                                                    {% for choices in form.subject.choices %}
-                                                        <option>{{ choices[1] }}</option>
+                                                    {% for choice in form.subject.choices %}
+                                                        <option>{{ choice[1] }}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
@@ -134,19 +152,22 @@
                                             data-toggle="collapse"
                                             data-target="#collapseSCQFLevel" aria-expanded="false"
                                             aria-controls="collapseSCQFLevel">
-                                        {{ form.scqf_level.label.text }}<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                        {{ form.scqf_level.label.text }}<i class="fas fa-chevron-right float-right"
+                                                                           aria-hidden="true"></i>
                                     </button>
                                 </h3>
                             </div>
-                            <div id="collapseSCQFLevel" class="collapse multi-collapse" aria-labelledby="headingSCQFLevel">
+                            <div id="collapseSCQFLevel" class="collapse multi-collapse"
+                                 aria-labelledby="headingSCQFLevel">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <select class="selectpicker form-control" name="{{ form.scqf_level.name }}"
+                                                <select class="selectpicker form-control"
+                                                        name="{{ form.scqf_level.name }}"
                                                         data-live-search="true" multiple title="Any">
-                                                    {% for choices in form.scqf_level.choices %}
-                                                        <option>{{ choices[1] }}</option>
+                                                    {% for choice in form.scqf_level.choices %}
+                                                        <option>{{ choice[1] }}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
@@ -165,17 +186,20 @@
                                             data-toggle="collapse"
                                             data-target="#collapseDeliveryLoc" aria-expanded="false"
                                             aria-controls="collapseDeliveryLoc">
-                                        {{ form.delivery_location.label.text }}<i class="fas fa-chevron-right float-right"
-                                                               aria-hidden="true"></i>
+                                        {{ form.delivery_location.label.text }}<i
+                                            class="fas fa-chevron-right float-right"
+                                            aria-hidden="true"></i>
                                     </button>
                                 </h3>
                             </div>
-                            <div id="collapseDeliveryLoc" class="collapse multi-collapse" aria-labelledby="headingDeliveryLoc">
+                            <div id="collapseDeliveryLoc" class="collapse multi-collapse"
+                                 aria-labelledby="headingDeliveryLoc">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <select class="selectpicker form-control" name="{{ form.delivery_location.name }}"
+                                                <select class="selectpicker form-control"
+                                                        name="{{ form.delivery_location.name }}"
                                                         data-live-search="true" multiple title="Any">
                                                     {% for choice in form.delivery_location.choices %}
                                                         <option>{{ choice[1] }}</option>
@@ -197,16 +221,19 @@
                                             data-toggle="collapse"
                                             data-target="#collapseTrimester" aria-expanded="false"
                                             aria-controls="collapseTrimester">
-                                        {{ form.trimester.label.text }}<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                        {{ form.trimester.label.text }}<i class="fas fa-chevron-right float-right"
+                                                                          aria-hidden="true"></i>
                                     </button>
                                 </h3>
                             </div>
-                            <div id="collapseTrimester" class="collapse multi-collapse" aria-labelledby="headingTrimester">
+                            <div id="collapseTrimester" class="collapse multi-collapse"
+                                 aria-labelledby="headingTrimester">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <select class="selectpicker form-control" name="{{ form.trimester.name }}"
+                                                <select class="selectpicker form-control"
+                                                        name="{{ form.trimester.name }}"
                                                         data-live-search="true" multiple title="Any">
                                                     {% for choice in form.trimester.choices %}
                                                         <option>{{ choice[1] }}</option>
@@ -228,7 +255,8 @@
                                             data-toggle="collapse"
                                             data-target="#collapseYear" aria-expanded="false"
                                             aria-controls="collapseYear">
-                                        {{ form.term.label.text }}<i class="fas fa-chevron-right float-right" aria-hidden="true"></i>
+                                        {{ form.term.label.text }}<i class="fas fa-chevron-right float-right"
+                                                                     aria-hidden="true"></i>
                                     </button>
                                 </h3>
                             </div>
@@ -260,16 +288,18 @@
                                             data-target="#collapseDeliveryMode" aria-expanded="false"
                                             aria-controls="collapseDeliveryMode">
                                         {{ form.delivery_mode.label.text }}<i class="fas fa-chevron-right float-right"
-                                                           aria-hidden="true"></i>
+                                                                              aria-hidden="true"></i>
                                     </button>
                                 </h3>
                             </div>
-                            <div id="collapseDeliveryMode" class="collapse multi-collapse" aria-labelledby="headingDeliveryMode">
+                            <div id="collapseDeliveryMode" class="collapse multi-collapse"
+                                 aria-labelledby="headingDeliveryMode">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <select class="selectpicker form-control" name="{{ form.delivery_mode.name }}"
+                                                <select class="selectpicker form-control"
+                                                        name="{{ form.delivery_mode.name }}"
                                                         data-live-search="true" multiple title="Any">
                                                     {% for choice in form.delivery_mode.choices %}
                                                         <option>{{ choice[1] }}</option>
@@ -281,21 +311,33 @@
                                 </div>
                             </div>
                         </div>
-                        {{ form.submit(class='form-control btn btn-primary btn-block') }}
-                    </form>
+                    </div>
                 </div>
-            </div>
+                {{ form.submit(class='form-control btn btn-primary btn-block') }}
+            </form>
         </div>
     </div>
     <!-- Pagination --->
     <div class="row justify-content-center fixed-bottom">
         <nav aria-label="page-navigation">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                {% if previous_page > 0 %}
+                    <li class="page-item"><a href="{{ url_for('frontend.modules', page=(previous_page)) }}"
+                                             class="page-link">Previous</a>
+                    </li>
+                {% endif %}
+                {% for page in pages %}
+                    {% if page == current_page %}
+                        <li class="page-item"><a href="{{ url_for('frontend.modules', page=page) }}"
+                                                 class="page-link"><b class="text-secondary">{{ page }}</b></a></li>
+                    {% else %}
+                        <li class="page-item"><a href="{{ url_for('frontend.modules', page=page) }}"
+                                                 class="page-link">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item"><a href="{{ url_for('frontend.modules', page=next_page) }}"
+                                         class="page-link">Next</a>
+                </li>
             </ul>
         </nav>
     </div>

@@ -8,23 +8,28 @@ $theme-colors: (
 
 $font-family-base: 'Roboto', sans-serif;
 
+.btn-primary {
+  color: #ffffff !important;
+}
+
+
 .card {
-    button {
-      // increase the click area of the anchor trigger to match the original .panel-heading
-      display: block;
-      padding: 10px 15px;
+  button {
+    // increase the click area of the anchor trigger to match the original .panel-heading
+    display: block;
+    padding: 10px 15px;
 
-      // spin the chevron!
-      &[aria-expanded=true] {
-        .fas.fa-chevron-right {
-          transform: rotate(90deg);
-          transition: transform 350ms cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-      }
-
+    // spin the chevron!
+    &[aria-expanded=true] {
       .fas.fa-chevron-right {
+        transform: rotate(90deg);
         transition: transform 350ms cubic-bezier(0.645, 0.045, 0.355, 1);
       }
+    }
+
+    .fas.fa-chevron-right {
+      transition: transform 350ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
   }
 }
 

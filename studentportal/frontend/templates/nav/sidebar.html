@@ -16,12 +16,12 @@
                         Dashboard
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/feed">
-                        <i class="fa fa-newspaper"></i>
-                        Feed
-                    </a>
-                </li>
+{#                <li class="sidebar-item">#}
+{#                    <a class="sidebar-link" href="/feed">#}
+{#                        <i class="fa fa-newspaper"></i>#}
+{#                        Feed#}
+{#                    </a>#}
+{#                </li>#}
                 <li class="sidebar-item">
                     <a class="sidebar-link" href={{ url_for('frontend.profile', username=current_user.username) }}>
                         <i class="fa fa-user"></i>
@@ -34,12 +34,12 @@
                         Calendar
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/projects">
-                        <i class="fa fa-folder"></i>
-                        Projects
-                    </a>
-                </li>
+{#                <li class="sidebar-item">#}
+{#                    <a class="sidebar-link" href="/projects">#}
+{#                        <i class="fa fa-folder"></i>#}
+{#                        Projects#}
+{#                    </a>#}
+{#                </li>#}
                 <li class="sidebar-item">
                     <a class="sidebar-link" href={{ url_for('frontend.my_modules') }}>
                         <i class="fa fa-folder"></i>
@@ -48,7 +48,7 @@
                 </li>
             {% else %}
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/Home">
+                    <a class="sidebar-link" href="{{ url_for('frontend.index') }}">
                         <i class="fa fa-house"></i>
                         Home
                     </a>

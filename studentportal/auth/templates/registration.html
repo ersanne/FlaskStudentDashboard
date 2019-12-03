@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container-fluid h-100">
         <div class="row h-100 align-items-center justify-content-center">
-            <div class="col-md-3">
+            <div class="col-3">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4 mt-1">Sign Up</h4>
@@ -25,6 +25,7 @@
                             <div class="form-group mb-0">
                                 {{ form.submit(class='btn btn-primary btn-block') }}
                             </div>
+                            {% include 'modals/form-errors-alert.html' %}
                         </form>
                     </div>
                 </div>

@@ -1,10 +1,15 @@
 from flask import render_template, redirect, url_for, request, abort
 from flask_login import login_required, current_user
-from wtforms import BooleanField
 
 from studentportal.frontend import bp
 from studentportal.models import mongo
 from studentportal.frontend.forms import CreateProfileForm, FilterModulesForm
+
+
+@bp.before_request
+def before_request():
+    if current_user.is_authenticated and not current_user.data_setup_complete():
+        return redirect(url_for('auth.data_setup'))
 
 
 @bp.route('/')
@@ -42,8 +47,6 @@ def profile(username):
             if form.validate_on_submit():
                 profile_json = {
                     "_id": username,
-                    "first_name": form.first_name.data,
-                    "last_name": form.last_name.data,
                     "skills": form.skills.data,
                     "location": form.location.data,
                     "home_location": form.home_location.data,
@@ -57,7 +60,8 @@ def profile(username):
                 }
                 mongo.db.profiles.insert_one(profile_json)
                 return redirect(url_for('frontend.profile', username=username))
-            return render_template('create_profile.html', form=form)
+            return render_template('create_profile.html', form=form,
+                                   student=mongo.db.students.find_one({"_id": username}))
         else:
             return redirect(url_for('auth.login'))
     return render_template('profile.html', profile=profile_data)
@@ -80,9 +84,10 @@ def project_page(project_slug):
 
 @bp.route('/modules', methods=['GET', 'POST'])
 def modules():
-    filter_form = FilterModulesForm()
+    # TODO Keep selected options after applying
+    filter_form = FilterModulesForm(sort='title_ascending:1')
 
-    # Add all possible filter options (possibly should be curated in the future
+    # Add all possible filter options (possibly should be curated in the future)
     for one_school in sorted(mongo.db.modules.distinct('school')):
         if not one_school:
             continue
@@ -138,14 +143,36 @@ def modules():
 
     page = request.args.get('page', 1, type=int)
     skips = (page - 1) * 20
-    module_data = list(mongo.db.modules.find(query).skip(skips).limit(20))
-
-    return render_template('module-list.html', data=module_data, form=filter_form)
+    sort = filter_form.sort.data.split(':')
+    if sort[0] != 'module_title':
+        module_data = list(
+            mongo.db.modules.find(query).sort([(sort[0], int(sort[1])), ('module_title', 1)]).skip(skips).limit(20))
+    else:
+        module_data = list(
+            mongo.db.modules.find(query).sort(sort[0], int(sort[1])).skip(skips).limit(20))
+    if (page - 3) < 1:
+        pages = range(1, 7)
+    else:
+        pages = range(page - 3, page + 4)
+    return render_template('module-list.html', data=module_data, form=filter_form, pages=pages, current_page=page,
+                           previous_page=page - 1, next_page=page + 1)
 
 
 @bp.route('/my/modules')
+@login_required
 def my_modules():
-    return render_template('base.html')
+    module_data = mongo.db.modules.find(
+        {"_id": {"$in": mongo.db.students.find_one({"_id": current_user.username})['enrolled_modules']}})
+    form = FilterModulesForm()
+    return render_template('module-list.html', data=module_data, form=form)
+
+
+@bp.route('/module/add/<module_code>')
+@login_required
+def add_module(module_code):
+    mongo.db.students.update_one({"_id": current_user.username}, {"$push": {"enrolled_modules": module_code}})
+    return redirect(request.headers.get("Referer"))
+
 
 @bp.route('/module/<module_code>')
 def module_page(module_code):

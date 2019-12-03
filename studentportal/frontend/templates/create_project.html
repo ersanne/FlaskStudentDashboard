@@ -1,0 +1,156 @@
+{% extends "layouts/page-layout.html" %}
+{% set page_title = "Create your profile" %}
+
+{% block body_script %}
+    <script src="{{ url_for('static', filename='js/select2.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="col-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">
+                                    Project Details
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6 form-group">
+                                        {{ form.first_name.label(class='control-label required') }}
+                                        {{ form.first_name(size=32, class='form-control') }}
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        {{ form.last_name.label(class='control-label required') }}
+                                        {{ form.last_name(size=32, class='form-control') }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.skills.label }}
+                                        <select class="select2-skills" name="{{ form.skills.name }}"
+                                                multiple="multiple"
+                                                style="width: 100%;">
+                                            {#                                            {% for option in form.skills.options %}#}
+                                            {#                                                <option value="{{ option[0] }}">{{ option[1] }}</option>#}
+                                            {#                                            {% endfor %}#}
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4 form-group">
+                                        {{ form.location.label }}
+                                        {{ form.location(size=32, class='form-control') }}
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        {{ form.home_location.label }}
+                                        {{ form.home_location(size=32, class='form-control') }}
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        {{ form.company.label }}
+                                        {{ form.company(size=32, class='form-control') }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row justify-content-center">
+                                    <div class="col-3 form-group">
+                                        {{ form.website.label }}
+                                        {{ form.website(size=32, class='form-control') }}
+                                    </div>
+                                    <div class="col-3 form-group">
+                                        {{ form.linked_in.label }}
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">in/</div>
+                                            </div>
+                                            {{ form.linked_in(size=32, class='form-control', placeholder='Username') }}
+                                        </div>
+                                    </div>
+                                    <div class="col-3 form-group">
+                                        {{ form.twitter.label }}
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">@</div>
+                                            </div>
+                                            {{ form.twitter(size=32, class='form-control', placeholder='Username') }}
+                                        </div>
+                                    </div>
+                                    <div class="col-3 form-group">
+                                        {{ form.instagram.label }}
+                                        {{ form.instagram(size=32, class='form-control', placeholder='Username') }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{ form.about.label }}
+                                            {{ form.about(rows='4', class='form-cotnrol full-width') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <!-- Profile picture -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">
+                                    Your picture
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
+                                         class="rounded-circle" width="128" height="128" alt="">
+                                </div>
+                                <div class="form-group pt-4">
+                                    <div class="row justify-content-center">
+                                        <div class="col">
+                                            <div class="custom-file">
+                                                {{ form.profile_picture(class='custom-file-input') }}
+                                                {{ form.profile_picture.label(class='custom-file-label') }}
+                                                {{ image_cropper_modal('profile_picture', 'imgModal') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Feature options -->
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h4 class="mb-0 card-title">
+                                    Feature options
+                                </h4>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    {{ form.enable_portfolio(checked=True, class='form-check-input') }}
+                                    {{ form.enable_portfolio.label(class='form-check-label') }}
+                                </div>
+                                <div class="form-check">
+                                    {{ form.enable_activity(checked=True, class='form-check-input') }}
+                                    {{ form.enable_activity.label(class='form-check-label') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-8 mt-3">
+                        {{ form.submit(class='btn btn-primary btn-block') }}
+                    </div>
+                </div>
+                {% include 'modals/form-errors-alert.html' %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

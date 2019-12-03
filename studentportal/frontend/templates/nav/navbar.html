@@ -3,32 +3,18 @@
 <nav class="navbar navbar-expand navbar-light bg-white">
     <i id="sidebar-toggle" class="nav-icon sidebar-toggle fa fa-stream"></i>
     <form class="form-inline">
-        <input placeholder="Search..." aria-label="Search" type="text"
-               class="form-control-no-border mr-sm-2 form-control">
+{#        <input placeholder="Search..." aria-label="Search" type="text"#}
+{#               class="form-control-no-border mr-sm-2 form-control">#}
     </form>
     <li class="collapse navbar-collapse">
         <ul class="ml-auto navbar-nav">
             {% if current_user.is_authenticated %}
                 <li class="nav-item dropdown mr-2">
-                    <a aria-haspopup="true" href="#" class="nav-icon nav-link" data-toggle="dropdown"
-                       aria-expanded="false">
-                        <i class="far fa-comments"></i>
-                        <span class="indicator">5</span>
-                    </a>
-                </li>
-                <li class="nav-item dropdown mr-2">
-                    <a aria-haspopup="true" href="#" class="nav-icon nav-link" data-toggle="dropdown"
-                       aria-expanded="false">
-                        <i class="far fa-bell"></i>
-                        <span class="indicator">5</span>
-                    </a>
-                </li>
-                <li class="nav-item dropdown mr-2">
                     <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown"
                        aria-haspopup="true"
                        aria-expanded="false">
-                        <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.png') }}"
-                             class="avatar rounded-circle mr-1" alt="Erik Sanne">
+                        <img src="{{ url_for('static', filename='assets/img/profile_picture_placeholder.jpg') }}"
+                             class="avatar rounded-circle mr-1" alt="">
                         <span class="text-dark">{{ current_user.username }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">

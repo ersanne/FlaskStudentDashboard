@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_login import LoginManager
+from flask_mail import Mail
 
 login_manager = LoginManager()
+mail = Mail()
 
 
 def create_app():
@@ -15,6 +17,9 @@ def create_app():
 
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
+
+    # This doesnt't work (outdated?), no email implemented for now
+    # mail.init_app(mail)
 
     from studentportal.errors import bp as error_bp
     app.register_blueprint(error_bp)

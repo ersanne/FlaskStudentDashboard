@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.btn-primary {
+  color: #ffffff !important;
+}
+
 .card button {
   display: block;
   padding: 10px 15px;
