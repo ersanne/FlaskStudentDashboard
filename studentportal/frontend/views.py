@@ -165,7 +165,7 @@ def modules():
     else:
         pages = range(page - 3, page + 4)
     return render_template('module-list.html', data=module_data, form=filter_form, pages=pages, current_page=page,
-                           previous_page=page - 1, next_page=page + 1)
+                           previous_page=page - 1, next_page=page + 1, list=True)
 
 
 @bp.route('/my/modules')
@@ -174,7 +174,7 @@ def my_modules():
     module_data = mongo.db.modules.find(
         {"_id": {"$in": mongo.db.students.find_one({"_id": current_user.username})['enrolled_modules']}})
     form = FilterModulesForm()
-    return render_template('module-list.html', data=module_data, form=form)
+    return render_template('module-list.html', data=module_data, form=form, list=False)
 
 
 @bp.route('/module/add/<module_code>')
