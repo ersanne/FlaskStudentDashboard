@@ -45,9 +45,12 @@ class DataSetupForm(FlaskForm):
     first_name = StringField('First name', validators=[InputRequired('First name is required')])
     last_name = StringField('Last name', validators=[InputRequired('Last name is required')])
     course_title = StringField('Course title', validators=[InputRequired('Course Title is required')])
-    year_of_study = SelectField('Year of study', choices=[(1, 1), (8, 8)],
+    year_of_study = SelectField('Year of study',
+                                choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9),
+                                         (10, 10)],
                                 validators=[InputRequired('Year of study is required')])
-    current_scqf_level = SelectField('Current SCQF level', choices=[(7, 7), (8, 8)], validators=[InputRequired('')])
+    current_scqf_level = SelectField('Current SCQF level', choices=[(7, 7), (8, 8), (9, 9), (10, 10), (11, 11)],
+                                     validators=[InputRequired('')])
     enrolled_modules = SelectMultipleField('All currently enrolled modules', choices=[], validators=[InputRequired()])
     submit = SubmitField('Finish setup')
 
