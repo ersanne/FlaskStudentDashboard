@@ -3,6 +3,7 @@ version: '3.3'
 services:
   studentportal:
     container_name: studentportal
+    restart: unless-stopped
     build: .
     depends_on:
       - mongodb

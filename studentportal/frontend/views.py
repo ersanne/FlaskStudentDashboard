@@ -164,7 +164,10 @@ def modules():
         pages = range(1, 7)
     else:
         pages = range(page - 3, page + 4)
-    student_data = mongo.db.students.find_one({"_id": current_user.username})
+    if current_user.is_authenticated:
+        student_data = mongo.db.students.find_one({"_id": current_user.username})
+    else:
+        student_data = None
     return render_template('module-list.html', student=student_data, data=module_data, form=filter_form, pages=pages, current_page=page,
                            previous_page=page - 1, next_page=page + 1, list=True)
 
