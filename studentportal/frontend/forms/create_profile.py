@@ -37,8 +37,3 @@ class CreateProfileForm(FlaskForm):
     enable_activity = BooleanField('Enable Activity/Timeline')
 
     submit = SubmitField('Create Profile')
-
-    def validate_email(self, email):
-        user = mongo.db.users.find_one({"email": email.data})
-        if user is not None:
-            raise ValidationError('Email already in use.')

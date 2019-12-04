@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, request, flash
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
 from studentportal import login_manager
@@ -70,12 +70,10 @@ def signup():
 
 
 @bp.route('/data-setup', methods=['GET', 'POST'])
+@login_required
 def data_setup():
-    if current_user.is_authenticated:
-        if current_user.data_setup_complete():
-            return redirect(url_for('frontend.index'))
-    else:
-        return redirect(url_for('auth.login'))
+    if current_user.data_setup_complete():
+        return redirect(url_for('frontend.index'))
 
     form = DataSetupForm()
     if form.validate_on_submit():

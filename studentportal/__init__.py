@@ -16,7 +16,7 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
 
-    # This doesnt't work (outdated?), no email implemented for now
+    # No email implemented for now
     # mail.init_app(mail)
 
     from studentportal.errors import bp as error_bp
