@@ -22,14 +22,16 @@
                             <div class="col-9">
                                 <h5>{{ module['module_title'] }}</h5><h6>{{ module['_id'] }}</h6>
                             </div>
-                            {% if current_user.is_authenticated and module['_id'] not in student['enrolled_modules' and list %}
+                            {% if current_user.is_authenticated and module['_id'] not in student['enrolled_modules'] and list %}
                                 <div class="col-3 text-right">
-                                    <a href="/module/add/{{ module['_id'] }}" class="btn btn-secondary btn-block">Add to my
+                                    <a href="/module/add/{{ module['_id'] }}" class="btn btn-secondary btn-block">Add to
+                                        my
                                         modules</a><br>
                                 </div>
                             {% elif current_user.is_authenticated %}
-                                <div class="col-3 text-right">    
-                                   <a href="/module/remove/{{ module['_id'] }}" class="btn btn-secondary btn-block">Remove from
+                                <div class="col-3 text-right">
+                                    <a href="/module/remove/{{ module['_id'] }}" class="btn btn-secondary btn-block">Remove
+                                        from
                                         my modules</a><br>
                                 </div>
                             {% endif %}
@@ -332,29 +334,29 @@
         {% endif %}
     </div>
     {% if list %}
-    <!-- Pagination --->
-    <div class="row justify-content-center fixed-bottom">
-        <nav aria-label="page-navigation">
-            <ul class="pagination">
-                {% if previous_page > 0 %}
-                    <li class="page-item"><a href="{{ url_for('frontend.modules', page=(previous_page)) }}"
-                                             class="page-link">Previous</a>
-                    </li>
-                {% endif %}
-                {% for page in pages %}
-                    {% if page == current_page %}
-                        <li class="page-item"><a href="{{ url_for('frontend.modules', page=page) }}"
-                                                 class="page-link"><b class="text-secondary">{{ page }}</b></a></li>
-                    {% else %}
-                        <li class="page-item"><a href="{{ url_for('frontend.modules', page=page) }}"
-                                                 class="page-link">{{ page }}</a></li>
+        <!-- Pagination --->
+        <div class="row justify-content-center fixed-bottom">
+            <nav aria-label="page-navigation">
+                <ul class="pagination">
+                    {% if previous_page > 0 %}
+                        <li class="page-item"><a href="{{ url_for('frontend.modules', page=(previous_page)) }}"
+                                                 class="page-link">Previous</a>
+                        </li>
                     {% endif %}
-                {% endfor %}
-                <li class="page-item"><a href="{{ url_for('frontend.modules', page=next_page) }}"
-                                         class="page-link">Next</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+                    {% for page in pages %}
+                        {% if page == current_page %}
+                            <li class="page-item"><a href="{{ url_for('frontend.modules', page=page) }}"
+                                                     class="page-link"><b class="text-secondary">{{ page }}</b></a></li>
+                        {% else %}
+                            <li class="page-item"><a href="{{ url_for('frontend.modules', page=page) }}"
+                                                     class="page-link">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li class="page-item"><a href="{{ url_for('frontend.modules', page=next_page) }}"
+                                             class="page-link">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     {% endif %}
 {% endblock %}
