@@ -22,11 +22,15 @@
                             <div class="col-9">
                                 <h5>{{ module['module_title'] }}</h5><h6>{{ module['_id'] }}</h6>
                             </div>
-                            {% if current_user.is_authenticated %}
+                            {% if current_user.is_authenticated and module['_id'] not in student['enrolled_modules' and list %}
                                 <div class="col-3 text-right">
-                                    <a href="/module/add/{{ module['_id'] }}" class="btn btn-secondary btn-block">Add to
-                                        my
+                                    <a href="/module/add/{{ module['_id'] }}" class="btn btn-secondary btn-block">Add to my
                                         modules</a><br>
+                                </div>
+                            {% elif current_user.is_authenticated %}
+                                <div class="col-3 text-right">    
+                                   <a href="/module/remove/{{ module['_id'] }}" class="btn btn-secondary btn-block">Remove from
+                                        my modules</a><br>
                                 </div>
                             {% endif %}
                         </div>

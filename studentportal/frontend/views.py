@@ -49,7 +49,7 @@ def profile(username):
         if current_user.is_authenticated and current_user.get_id() == username:
             form = CreateProfileForm()
             if form.validate_on_submit():
-                unique_filename = uuid.uuid4().hex
+                unique_filename = uuid.uuid4().hex + '.png'
                 file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], 'img', unique_filename)
                 form.profile_picture.data.save(file_path)
 
@@ -164,23 +164,32 @@ def modules():
         pages = range(1, 7)
     else:
         pages = range(page - 3, page + 4)
-    return render_template('module-list.html', data=module_data, form=filter_form, pages=pages, current_page=page,
+    student_data = mongo.db.students.find_one({"_id": current_user.username})
+    return render_template('module-list.html', student=student_data, data=module_data, form=filter_form, pages=pages, current_page=page,
                            previous_page=page - 1, next_page=page + 1, list=True)
 
 
 @bp.route('/my/modules')
 @login_required
 def my_modules():
+    student_data = mongo.db.students.find_one({"_id": current_user.username})
     module_data = mongo.db.modules.find(
-        {"_id": {"$in": mongo.db.students.find_one({"_id": current_user.username})['enrolled_modules']}})
+        {"_id": {"$in": student_data['enrolled_modules']}})
     form = FilterModulesForm()
-    return render_template('module-list.html', data=module_data, form=form, list=False)
+    return render_template('module-list.html', student=student_data, data=module_data, form=form, list=False)
 
 
 @bp.route('/module/add/<module_code>')
 @login_required
 def add_module(module_code):
     mongo.db.students.update_one({"_id": current_user.username}, {"$push": {"enrolled_modules": module_code}})
+    return redirect(request.headers.get("Referer"))
+
+
+@bp.route('/module/remove/<module_code>')
+@login_required
+def remove_module(module_code):
+    mongo.db.students.update_one({"_id": current_user.username}, {"$pull": {"enrolled_modules": module_code}})
     return redirect(request.headers.get("Referer"))
 
 

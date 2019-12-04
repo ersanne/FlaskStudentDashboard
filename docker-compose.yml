@@ -10,7 +10,7 @@ services:
       - frontend
       - database
     volumes:
-      - assets/:/data/assets/
+      - ./assets/:/data/assets/
     environment:
       - SECRET_KEY=you-will-never-guess
       - MONGO_URI=mongodb://flask-app:E9T8ydKeCvfc@mongodb:27017/studentportal

@@ -1,8 +1,5 @@
-FROM ubuntu:18.04
+FROM python:3.7-alpine
 MAINTAINER Erik Sanne <studentportal@eriksanne.com>
-
-# install our dependencies and nodejs
-RUN apt-get update && apt-get -y install python-pip python-dev git npm
 
 # Python environment
 COPY requirements.txt requirements.txt
@@ -14,11 +11,6 @@ WORKDIR /home/studentportal
 # Copy app and config/startup files
 COPY studentportal studentportal
 COPY wsgi.py config.py bower.json ./
-
-# install bower
-RUN npm install --global bower
-# install dependencies
-RUN bower install --allow-root
 
 # Run app on port 5000
 EXPOSE 5000
